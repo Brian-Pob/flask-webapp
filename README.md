@@ -2,8 +2,11 @@
 
 
 ## Commands 
-Activate virtual environment
-`python3 -m pip install -r requirements.txt`
+Activate virtual environment: `. ./venv/bin/activate`
+
+Install requirements: `python3 -m pip install -r requirements.txt`
+
+Gunicorn: `gunicorn --workers 3 --bind 0.0.0.0:8000 helloworld:app`
 
 ## Getting started
 
