@@ -1,6 +1,9 @@
 # COP4521
 
 
+## Commands 
+Activate virtual environment
+`python3 -m pip install -r requirements.txt`
 
 ## Getting started
 
