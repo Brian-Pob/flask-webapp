@@ -10,7 +10,7 @@ requests = "*"
 gunicorn = "*"
 
 [scripts]
-guni ="gunicorn --workers 3 --bind 0.0.0.0:8000 helloworld:app"
+guni ="gunicorn --workers 3 --bind 0.0.0.0:8000 --daemon helloworld:app"
 
 [dev-packages]
 
