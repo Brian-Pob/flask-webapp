@@ -8,9 +8,12 @@ flask = "*"
 numpy = "*"
 requests = "*"
 gunicorn = "*"
+authlib = "*"
+python-dotenv = "*"
 
 [scripts]
-guni ="gunicorn --workers 3 --bind 0.0.0.0:8000 --daemon helloworld:app"
+guni ="gunicorn --workers 3 --bind unix:cop4521.sock -m 007 --daemon --reload wsgi:app"
+gunidebug ="gunicorn --workers 3 --bind unix:cop4521.sock -m 007 --reload wsgi:app"
 
 [dev-packages]
 
