@@ -6,6 +6,10 @@ from urllib.parse import quote_plus, urlencode
 from authlib.integrations.flask_client import OAuth
 from dotenv import find_dotenv, load_dotenv
 from flask import Flask, redirect, render_template, session, url_for
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+from app import Config 
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
@@ -13,6 +17,16 @@ if ENV_FILE:
 
 app = Flask(__name__)
 app.secret_key = env.get("APP_SECRET_KEY")
+
+app.config.from_object(Config)
+
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+from app import models
+#u = User(username='brian', email='example@ex.com')
+#print(u)
+
 
 oauth = OAuth(app)
 

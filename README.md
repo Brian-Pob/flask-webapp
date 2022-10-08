@@ -17,3 +17,8 @@ be our bare metal machines or on other VMs. These dev machines should have
 the same or similar setups to the production machine. That means setting up
 Ubuntu 22.04, python3, pip, pipenv, gunicorn, nginx, etc.
 
+## References
+
+https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-22-04
+
+https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world

@@ -10,6 +10,8 @@ requests = "*"
 gunicorn = "*"
 authlib = "*"
 python-dotenv = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
 
 [scripts]
 gunilocal= "gunicorn --workers 3 --bind 0.0.0.0:8000 -m 007 --reload wsgi:app"
