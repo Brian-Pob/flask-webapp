@@ -41,33 +41,8 @@ def index():
 def home():
     return render_template("home.html", session=dict(session).get('user', None)) 
 
-@app.route("/login")
-def login():
-    print(url_for("callback", _external=True))
-    return oauth.auth0.authorize_redirect(
-        redirect_uri=url_for("callback", _external=True)
-    )
-
-@app.route("/callback", methods=["GET", "POST"])
-def callback():
-    token = oauth.auth0.authorize_access_token()
-    session["user"] = token
-    return redirect("/")
-
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect(
-        "https://" + env.get("AUTH0_DOMAIN")
-        + "/v2/logout?"
-        + urlencode(
-            {
-                "returnTo": url_for("index", _external=True),
-                "client_id": env.get("AUTH0_CLIENT_ID"),
-            },
-            quote_via=quote_plus,
-        )
-    )
+from app.auth import auth_bp 
+app.register_blueprint(auth_bp)
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0')
