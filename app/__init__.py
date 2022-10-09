@@ -12,6 +12,7 @@ if ENV_FILE:
     load_dotenv(ENV_FILE)
 
 app = Flask(__name__)
+    
 app.secret_key = env.get("APP_SECRET_KEY")
 
 app.config.from_object(Config)
