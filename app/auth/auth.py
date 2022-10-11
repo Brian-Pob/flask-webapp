@@ -1,7 +1,9 @@
+from urllib.parse import quote_plus, urlencode
 from authlib.integrations.flask_client import OAuth
 from dotenv import find_dotenv, load_dotenv
 from flask import Blueprint, Flask, redirect, render_template, session, url_for
 from app.auth import auth_bp as bp
+from app import oauth, env
 
 @bp.route("/login")
 def login():
