@@ -11,15 +11,15 @@ def index():
     session_user = dict(session).get('user', None)
     if (session_user):
         to_return = to_return + "<p>User {} is logged in</p>".format(session_user["userinfo"]["name"])
-    return '<p>This is a Python Flask app running with Gunicorn and Nginx! 🐍+🧪+🦄+🚙 = ⚡️💪🔥</p>' + to_return + image_url
+    return '<p>hello. This is a Python Flask app running with Gunicorn and Nginx! 🐍+🧪+🦄+🚙 = ⚡️💪🔥</p>' + to_return + image_url
 
 @app.route("/home")
 def home():
     # Testing
-    # u = User(username='john', email='john@example.com')
-    # assert not (u == None)
-    # db.session.add(u)
-    # db.session.commit()
+   # u = User(username='user2person', email='user2person@example.com')
+    #assert not (u == None)
+    #db.session.add(u)
+    #db.session.commit()
     users = User.query.all()
     assert not (users == None)
     # End Testing
