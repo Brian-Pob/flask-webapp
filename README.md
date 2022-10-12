@@ -3,17 +3,17 @@
 
 ## Commands 
 
-Activate virtual environment: `. ./venv/bin/activate`
-
-Install requirements: `python3 -m pip install -r requirements.txt`
-
-Gunicorn: `gunicorn --workers 3 --bind 0.0.0.0:8000 helloworld:app`
+For local development without nginx: `pipenv run gunilocal`
+With nginx (background): `pipenv run guni`
+With nginx (foreground + debug mode): `pipenv run gunidebug`
 
 For database
 
-$ flask db stamp head
-$ flask db migrate
-$ flask db upgrade
+```
+flask db stamp head
+flask db migrate
+flask db upgrade
+```
 
 ## Project Notes
 
@@ -22,6 +22,14 @@ should be running local instances of the server on other machines. This could
 be our bare metal machines or on other VMs. These dev machines should have
 the same or similar setups to the production machine. That means setting up
 Ubuntu 22.04, python3, pip, pipenv, gunicorn, nginx, etc.
+
+## What does curl news.brian.pob.me do?
+
+1. curl news.brianpob.me
+
+2. 
+
+## Project Security
 
 ## References
 
