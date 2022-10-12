@@ -1,6 +1,7 @@
 from flask import render_template, redirect, url_for, session
 from app import app, db
 from app.models import User, Post
+import requests
 
 @app.route("/")
 def index():
@@ -24,3 +25,14 @@ def home():
     assert not (users == None)
     # End Testing
     return render_template("home.html", session=dict(session).get('user', None), users=users) 
+
+@app.route("/apiTest")
+def apiTest():
+    base_url = 'https://hacker-news.firebaseio.com/v0/'
+    response = requests.get(base_url + "topstories.json")
+    to_return = []
+    for i in range(10):
+        extension = "item/" + str(response.json()[i]) + ".json?print=pretty"
+        new_response = requests.get(base_url + extension)
+        to_return.append(new_response.json()["title"])
+    return '<h1>Hacker News API Data</h1>' + str(to_return)
