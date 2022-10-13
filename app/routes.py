@@ -34,5 +34,6 @@ def apiTest():
     for i in range(10):
         extension = "item/" + str(response.json()[i]) + ".json?print=pretty"
         new_response = requests.get(base_url + extension)
-        to_return.append(new_response.json()["title"])
-    return '<h1>Hacker News API Data</h1>' + str(to_return)
+        to_return.append(new_response.json())
+    return render_template("apiTest.html", posts=to_return)
+
