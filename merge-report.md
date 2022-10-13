@@ -27,9 +27,11 @@ The time complexity of the binary search would be O(log(n)). You would perform
 binary search for each element inside both lists. This would leave the time
 complexity of the whole algorithm as O(n * log(n)).
 
-However, this can be parallelized. The biary search for each element can 
-be split between multiple tasks. This removes the n from the time complexity.
-Thus, we have an ultimate time complexity of O(log(n)).
+However, this can be parallelized. The binary search for each element can 
+be split between multiple tasks. This removes the n from the time complexity by
+executing every binary search simultaneously.
+
+Thus, we have an ultimate time complexity of **O(log(n)).**
 
 ## References
 
