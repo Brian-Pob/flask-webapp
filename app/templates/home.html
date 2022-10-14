@@ -1,9 +1,6 @@
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Auth0 Example</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
+{% block content %} 
+<body>
     {% if session %}
         <h1>Welcome {{session.userinfo.name}}!</h1>
         <p><a href="/logout">Logout</a></p>
@@ -14,4 +11,4 @@
     {% endif %}
     {{users}}
   </body>
-</html>
+{% endblock %}
