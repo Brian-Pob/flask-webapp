@@ -3,8 +3,10 @@
 ## Authors
 
 Brian Poblete - bap21k
+
 Jayen Lare - jsl19b
 
+Group 9
 
 ## Project Notes
 
