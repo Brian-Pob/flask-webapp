@@ -34,7 +34,12 @@ flask db migrate
 flask db upgrade
 ```
 
-## What does curl news.brian.pob.me do?
+## What does "curl news.brian.pob.me" do?
+
+The Linux command line tool "curl" stands for "Client URL", and is used enable data transfers over various network protocols. It is able to communicate with a server by specifying a URL and the data that is to be sent or recieved. "curl" is commonly used for debugging, error logging, endpoint testing, and downloading files from the internet. It can be used directly on the command line or in a script, by using the following syntax:
+
+curl [options/URLs]
+
 
 1. curl news.brianpob.me
 
