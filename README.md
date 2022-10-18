@@ -34,6 +34,10 @@ flask db migrate
 flask db upgrade
 ```
 
+## Nginx Setup
+
+
+
 ## What does "curl news.brian.pob.me" do?
 
 The Linux command line tool *curl* stands for "Client URL", and is used to enable data transfers over various network protocols. It is able to communicate with a server by specifying a URL and the data that is to be sent or recieved. *curl* is commonly used for debugging, error logging, endpoint testing, and downloading files from the internet. It can be used directly on the command line or in a script, by implementing the following syntax:
@@ -74,6 +78,10 @@ by Nginx (80 and 443). In our Nginx configuration, we also set port 80 HTTP to a
 redirect to port 443 HTTPS.
 
 We obtained an SSL certificate for our site using LetsEncrypt's Certbot so our site can use HTTPS.
+
+## How we deal with updates
+
+
 
 ## References
 
