@@ -81,6 +81,7 @@ We obtained an SSL certificate for our site using LetsEncrypt's Certbot so our s
 
 ## How we deal with updates
 
+We both work on our own virtual machines, and push any updates to our own dev branches. Once updates are working on our individual branch, we create a merge request with the main branch. After reviewing the merge request, the updates are merged into our main branch. Finally, we log into the server and pull the main branch with the updates.
 
 
 ## References
