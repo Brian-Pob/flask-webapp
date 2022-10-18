@@ -36,7 +36,7 @@ flask db upgrade
 
 ## What does "curl news.brian.pob.me" do?
 
-The Linux command line tool *curl* stands for "Client URL", and is used enable data transfers over various network protocols. It is able to communicate with a server by specifying a URL and the data that is to be sent or recieved. *curl* is commonly used for debugging, error logging, endpoint testing, and downloading files from the internet. It can be used directly on the command line or in a script, by using the following syntax:
+The Linux command line tool *curl* stands for "Client URL", and is used to enable data transfers over various network protocols. It is able to communicate with a server by specifying a URL and the data that is to be sent or recieved. *curl* is commonly used for debugging, error logging, endpoint testing, and downloading files from the internet. It can be used directly on the command line or in a script, by implementing the following syntax:
 ```
 curl [options/URLs]
 ```
@@ -44,9 +44,10 @@ For our project we were able to utilize the *curl* command, along with Wireshark
 ```
 curl news.brianpob.me
 ```
-This allowed us to build the flowchart shown below using Wireshark. The flowchart describes the protocols of communications being used, and what IP ports are being used.
+This allowed us to build the flowchart shown below using Wireshark. The flowchart showed us the protocols of communications being used are TCP and HTTP, and the IP ports being used are ports 80 and 50378.
 
-*** INSERT FLOWCHART HERE ***
+
+![curl command flowchart](./images/wireshark_graph.png)
 
 ## Project Security
 
