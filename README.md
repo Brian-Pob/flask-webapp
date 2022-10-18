@@ -40,6 +40,14 @@ The Linux command line tool "curl" stands for "Client URL", and is used enable d
 
 curl [options/URLs]
 
+For our project we were able to utilize the "curl" command, along with Wireshark to better understand the communication involved in accessing our server. We first executed the command: 
+
+curl news.brianpob.me
+
+This allowed us to build the flowchart shown below using Wireshark. The flowchart describes the protocols of communications being used, and what IP ports are being used.
+
+*** INSERT FLOWCHART HERE ***
+
 
 1. curl news.brianpob.me
 
