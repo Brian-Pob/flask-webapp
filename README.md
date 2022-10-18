@@ -49,7 +49,31 @@ This allowed us to build the flowchart shown below using Wireshark. The flowchar
 
 ![curl command flowchart](./images/wireshark_graph.png)
 
+## How does Flask object execute Python code?
+
+Below is an example of a basic Flask application
+```Python
+from flask import Flask    # from the flask package import the Flask class
+app = Flask(__name__)      # create an instance of the Flask object called app with __name__
+                           # __name__ is passed so the Flask object knows where to look for resources
+@app.route('/')            # now we tell Flask what URL should trigger our function
+def home():                # we create the function that should be triggered
+    return "Hey there!"
+if __name__ == '__main__': # if code is run standalone, name is main, execute the Flask app
+    app.run(debug=True)    # execute the app
+```
+[Source 1](https://pythonhow.com/python-tutorial/flask/How-a-Flask-app-works/)
+
+[Source 2](https://flask.palletsprojects.com/en/2.2.x/quickstart/#a-minimal-application)
+
 ## Project Security
+
+We disabled password authentication in SSH so that only keys can be used to login. In the server,
+we also setup firewall to block all ports by default except for SSH (port 22) and the ports used
+by Nginx (80 and 443). In our Nginx configuration, we also set port 80 HTTP to automatically
+redirect to port 443 HTTPS.
+
+We obtained an SSL certificate for our site using LetsEncrypt's Certbot so our site can use HTTPS.
 
 ## References
 
