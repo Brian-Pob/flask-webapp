@@ -36,7 +36,9 @@ flask db upgrade
 
 ## Nginx Setup
 
-
+We have Nginx setup to act as a proxy for our Flask app. When our domain is accessed, Nginx will access the .sock file created by Gunicorn
+and serve to the user whatever is being served to the .sock file. We also use Nginx to serve static files. This can be tested
+by going to [news.brianpob.me/static/images/stars.jpg](https://news.brianpob.me/static/images/stars.jpg) where we have an image that is being served by Nginx and not Flask.
 
 ## What does "curl news.brian.pob.me" do?
 
