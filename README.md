@@ -48,11 +48,6 @@ This allowed us to build the flowchart shown below using Wireshark. The flowchar
 
 *** INSERT FLOWCHART HERE ***
 
-
-1. curl news.brianpob.me
-
-2. 
-
 ## Project Security
 
 ## References
