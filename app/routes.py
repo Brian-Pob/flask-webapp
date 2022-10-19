@@ -26,7 +26,7 @@ def home():
     #users = db.one_or_404(db.select(User).filter_by(email='jayen@example.com')) 
     uinfo = dict(session).get('user', None)
     uinfo = dict(uinfo).get('userinfo', None)
-    stmt = select(User).where(or_(User.email == 'hello@hellilll.com' , User.username=='hello'))
+    stmt = select(User)
     users = db.session.execute(stmt).first() 
     parsed = json.dumps((session), indent=4) 
     # End Testing

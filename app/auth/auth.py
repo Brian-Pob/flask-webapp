@@ -24,7 +24,7 @@ def callback():
         print("Found old user")
         # To properly handle this, should clear session, logout, and redirect to
         # error page.
-        return redirect("/logout")
+        return redirect("/")
     newuser = User(username=uinfo.email, email=uinfo.email)
     # Setting username = email for now.
     db.session.add(newuser)
