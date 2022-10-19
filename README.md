@@ -22,3 +22,7 @@ Ubuntu 22.04, python3, pip, pipenv, gunicorn, nginx, etc.
 https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-22-04
 
 https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+
+https://stackoverflow.com/questions/17768940/target-database-is-not-up-to-date
+
+https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/queries/#select
