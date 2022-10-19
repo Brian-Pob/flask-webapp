@@ -9,7 +9,15 @@
         <h1>Welcome Guest</h1>
         <p><a href="/login">Login</a></p>
     {% endif %}
-    {{users}}
-    <pre>{{parsed}}</pre>
+<h1>API Data</h1>
+<div><pre>{{pretty}}</pre></div>
+{% for post in posts %}
+	<div>
+	<a href="{{post['url']}}"><h3>{{post["title"]}}</h3></a>
+	<p>{{post["by"]}}</p>
+	<button>Like</button>
+	<button>Dislike</button>
+	</div>
+{% endfor %}
   </body>
 {% endblock %}
