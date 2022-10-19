@@ -2,6 +2,7 @@ from flask import render_template, redirect, url_for, session
 from app import app, db
 from app.models import User, Post
 import json
+import requests
 from sqlalchemy import select, or_
 
 @app.route("/")
