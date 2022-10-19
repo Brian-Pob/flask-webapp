@@ -31,10 +31,6 @@ def home():
     users = db.session.execute(stmt).first() 
     parsed = json.dumps((session), indent=4) 
     # End Testing
-    return render_template("home.html", session=dict(session).get('user', None), users=users) 
-
-@app.route("/apiTest")
-def apiTest():
     base_url = 'https://hacker-news.firebaseio.com/v0/'
     response = requests.get(base_url + "topstories.json")
     to_return = []
@@ -42,5 +38,4 @@ def apiTest():
         extension = "item/" + str(response.json()[i]) + ".json?print=pretty"
         new_response = requests.get(base_url + extension)
         to_return.append(new_response.json())
-    return render_template("apiTest.html", posts=to_return)
-
+    return render_template("home.html", session=dict(session).get('user', None), users=users, posts=to_return) 
