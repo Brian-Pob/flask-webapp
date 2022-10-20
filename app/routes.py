@@ -19,17 +19,18 @@ def index():
 
 @app.route("/home")
 def home():
+    users = []
     try:
-		uinfo = dict(session).get('user', None)
-		uinfo = dict(uinfo).get('userinfo', None)
-		stmt = select(User)
-		try:
-			users = db.session.execute(stmt).first() 
-			parsed = json.dumps((session), indent=4) 
-		except:
-			print("Error in db access")
-	except:
-		print("Error in user session")
+        uinfo = dict(session).get('user', None)
+        uinfo = dict(uinfo).get('userinfo', None)
+        stmt = select(User)
+        try:
+            users = db.session.execute(stmt).first() 
+            parsed = json.dumps((session), indent=4) 
+        except:
+            print("Error in db access")
+    except:
+        print("Error in user session")
 
     base_url = 'https://hacker-news.firebaseio.com/v0/'
     response = requests.get(base_url + "topstories.json")
