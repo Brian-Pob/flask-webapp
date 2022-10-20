@@ -19,18 +19,18 @@ def index():
 
 @app.route("/home")
 def home():
-    # Testing
-   # u = User(username='user2person', email='user2person@example.com')
-    #assert not (u == None)
-    #db.session.add(u)
-    #db.session.commit()
-    #users = db.one_or_404(db.select(User).filter_by(email='jayen@example.com')) 
-    uinfo = dict(session).get('user', None)
-    uinfo = dict(uinfo).get('userinfo', None)
-    stmt = select(User)
-    users = db.session.execute(stmt).first() 
-    parsed = json.dumps((session), indent=4) 
-    # End Testing
+    try:
+		uinfo = dict(session).get('user', None)
+		uinfo = dict(uinfo).get('userinfo', None)
+		stmt = select(User)
+		try:
+			users = db.session.execute(stmt).first() 
+			parsed = json.dumps((session), indent=4) 
+		except:
+			print("Error in db access")
+	except:
+		print("Error in user session")
+
     base_url = 'https://hacker-news.firebaseio.com/v0/'
     response = requests.get(base_url + "topstories.json")
     to_return = []
@@ -38,4 +38,5 @@ def home():
         extension = "item/" + str(response.json()[i]) + ".json?print=pretty"
         new_response = requests.get(base_url + extension)
         to_return.append(new_response.json())
+
     return render_template("home.html", session=dict(session).get('user', None), users=users, posts=to_return) 
