@@ -1,0 +1,23 @@
+[Unit]
+Description=Gunicorn instance to serve COP4521 project
+After=network.target
+
+[Service]
+
+#User=root
+User=brian
+
+Group=www-data
+
+#WorkingDirectory=/root/cop4521
+WorkingDirectory=/home/brian/cop4521
+
+#Environment="PATH=/root/.local/share/virtualenvs/cop4521-he1QQxKQ/bin"
+Environment="PATH=/home/brian/.local/share/virtualenvs/cop4521-X1auc4i4/bin"
+
+#ExecStart=/root/.local/share/virtualenvs/cop4521-he1QQxKQ/bin/gunicorn --workers 3 --bind unix:cop4521.sock -m 007 helloworld:app
+ExecStart=/home/brian/.local/share/virtualenvs/cop4521-X1auc4i4/bin/gunicorn --reload --workers 3 --bind unix:cop4521.sock -m 007 wsgi:app
+#ExecStart=gunicorn --workers 3 --bind unix:cop4521.sock -m 007 helloworld:app
+
+[Install]
+WantedBy=multi-user.target

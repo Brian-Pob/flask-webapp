@@ -1,0 +1,59 @@
+server {
+	server_name brianpob.me news.brianpob.me;
+
+	# Security Headers
+	# https://infosec.mozilla.org/guidelines/web_security
+	add_header Content-Security-Policy "default-src 'none'; base-uri 'self'; form-action 'self'; font-src https://fonts.gstatic.com;
+			 	img-src 'self' https://i.imgur.com; object-src 'none'; script-src 'self'; style-src 'self'; frame-ancestors 'self';" always;
+
+	add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload;";
+	add_header X-Frame-Options "SAMEORIGIN";
+	add_header X-Content-Type-Options nosniff;
+	add_header Referrer-Policy "no-referrer, strict-origin-when-cross-origin";
+
+	location / {
+		include proxy_params;
+		#proxy_pass http://unix:/root/cop4521/cop4521.sock;
+		proxy_pass http://unix:/home/brian/cop4521/cop4521.sock;
+	}
+
+	location /static/ {
+		autoindex on;
+		alias /home/brian/static/;
+	}
+
+	location /memes/ {
+		alias /home/brian/memes/;
+	}
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/news.brianpob.me/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/news.brianpob.me/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+server {
+    if ($host = news.brianpob.me) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+	listen 80;
+	server_name brianpob.me news.brianpob.me;
+    return 404; # managed by Certbot
+
+
+}
+
+server {
+	listen 80;
+	server_name 24.199.65.13;
+	return 301 https://news.brianpob.me;
+}
+
+server {
+	listen 80;
+	server_name 134.122.27.23;
+	return 301 https://news.brianpob.me;
+}
