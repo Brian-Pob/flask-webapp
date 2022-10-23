@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block content %} 
+{% block content %}
 <body>
     {% if session %}
         <h1>Welcome {{session.userinfo.name}}!</h1>
@@ -15,8 +15,8 @@
 	<div>
 	<a href="{{post['url']}}"><h3>{{post["title"]}}</h3></a>
 	<p>{{post["by"]}}</p>
-	<button>Like</button>
-	<button>Dislike</button>
+	<button class="Like">Like</button>
+	<button class="Dislike">Dislike</button>
 	</div>
 {% endfor %}
   </body>
