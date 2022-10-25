@@ -1,9 +1,15 @@
+import sys
 from flask import render_template, redirect, url_for, session
 from app import app, db
 from app.models import User, Post
 import json
 import requests
 from sqlalchemy import select, or_
+from flask_caching import Cache
+
+cache = Cache(app)
+
+base_url = 'https://hacker-news.firebaseio.com/v0/'
 
 @app.route("/")
 def index():
@@ -32,12 +38,21 @@ def home():
     except:
         print("Error in user session")
 
-    base_url = 'https://hacker-news.firebaseio.com/v0/'
     response = requests.get(base_url + "topstories.json")
     to_return = []
     for i in range(10):
-        extension = "item/" + str(response.json()[i]) + ".json?print=pretty"
-        new_response = requests.get(base_url + extension)
-        to_return.append(new_response.json())
+        to_return.append(get_story_json(response.json()[i]))
 
+    if(cache.get("story_id") is None):
+        print("Cache get failed")
+    else:
+        print("Cache get succeeded" + str(cache.get("story_id")))
+    sys.stdout.flush()
     return render_template("home.html", session=dict(session).get('user', None), users=users, posts=to_return) 
+
+@cache.cached(timeout=50, key_prefix='story_id')
+def get_story_json(story_id):
+    extension = "item/" + str(story_id) + ".json?print=pretty"
+    new_response = requests.get(base_url + extension)
+    return new_response.json()
+
