@@ -50,7 +50,7 @@ def home():
     sys.stdout.flush()
     return render_template("home.html", session=dict(session).get('user', None), users=users, posts=to_return) 
 
-@cache.cached(timeout=50, key_prefix='story_id')
+@cache.memoize(timeout=604800)
 def get_story_json(story_id):
     extension = "item/" + str(story_id) + ".json?print=pretty"
     new_response = requests.get(base_url + extension)
