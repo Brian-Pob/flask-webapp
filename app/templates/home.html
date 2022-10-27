@@ -15,8 +15,13 @@
 	<div>
 	<a href="{{post['url']}}"><h3>{{post["title"]}}</h3></a>
 	<p>{{post["by"]}}</p>
-	<button class="Like">Like</button>
-	<button class="Dislike">Dislike</button>
+    {% if session %}
+        <button class="Like">Like</button>
+        <button class="Dislike">Dislike</button>
+    {% else %}
+        <button class="Like" disabled>Like</button>
+        <button class="Dislike" disabled>Dislike</button>
+    {% endif %}
 	</div>
 {% endfor %}
   </body>

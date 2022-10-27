@@ -7,11 +7,15 @@ button {
     text-align: center;
     font-size: 16px;
     font-weight: bold;
-
+    cursor: pointer;
 }
 
-button :hover{
-    cursor: pointer;
+button:hover{
+}
+
+button:disabled{
+    background-color: gray !important;
+    cursor: not-allowed !important;
 }
 
 .Like {
