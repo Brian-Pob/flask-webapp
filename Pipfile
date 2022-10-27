@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
 numpy = "*"
 requests = "*"
 gunicorn = "*"
@@ -13,6 +12,9 @@ python-dotenv = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-caching = "*"
+httpx = "*"
+asyncio = "*"
+flask = {extras = ["async"], version = "*"}
 
 [scripts]
 gunilocal= "gunicorn --workers 3 --bind 0.0.0.0:8000 -m 007 --reload wsgi:app"

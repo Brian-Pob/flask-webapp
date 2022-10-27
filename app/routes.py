@@ -6,6 +6,8 @@ import json
 import requests
 from sqlalchemy import select, or_
 from flask_caching import Cache
+import httpx
+import asyncio
 
 cache = Cache(app)
 
@@ -37,22 +39,18 @@ def home():
             print("Error in db access")
     except:
         print("Error in user session")
-
-    response = requests.get(base_url + "topstories.json")
-    to_return = []
-    for i in range(10):
-        to_return.append(get_story_json(response.json()[i]))
-
-    if(cache.get("story_id") is None):
-        print("Cache get failed")
-    else:
-        print("Cache get succeeded" + str(cache.get("story_id")))
+    posts = asyncio.run(getposts())
+    print("Print posts")
     sys.stdout.flush()
-    return render_template("home.html", session=dict(session).get('user', None), users=users, posts=to_return) 
+    print(posts[0:50])
+    sys.stdout.flush()
+    return render_template("home.html", session=dict(session).get('user', None), users=users, posts=posts) 
 
-@cache.memoize(timeout=604800)
-def get_story_json(story_id):
-    extension = "item/" + str(story_id) + ".json?print=pretty"
-    new_response = requests.get(base_url + extension)
-    return new_response.json()
+async def getposts():
+    async with httpx.AsyncClient() as s:
+        top = (await s.get(base_url + 'topstories.json')).json()
+        tasks = [s.get(base_url+'/item/'+str(article)+'.json') for article in top]
+        posts = await asyncio.gather(*tasks)
+        posts = [story.json() for story in posts]
+        return posts
 
