@@ -19,3 +19,24 @@ button {
 .Dislike {
 	background-color: red;
 }
+
+nav a {
+  color: #d64161;
+  font-size: 3em;
+  margin-left: 50px;
+  text-decoration: none;
+}
+
+.Login:link, .Login:visited {
+  background-color: dodgerblue;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin-left: 800px;
+}
+
+.Login:hover, .Login:active {
+  background-color: blue;
+}
