@@ -14,6 +14,7 @@ flask-migrate = "*"
 flask-caching = "*"
 httpx = "*"
 asyncio = "*"
+anyio = "*"
 flask = {extras = ["async"], version = "*"}
 
 [scripts]
