@@ -25,6 +25,12 @@ liked_posts = db.Table(
     db.Column("post_id", db.ForeignKey(Post.id), primary_key=True),
 )
 
+disliked_posts = db.Table(
+    "disliked_posts",
+    db.Column("user_id", db.ForeignKey(User.id), primary_key=True),
+    db.Column("post_id", db.ForeignKey(Post.id), primary_key=True),
+)
+
 admins = db.Table(
     "admins",
     db.Column("user_id", db.ForeignKey(User.id), primary_key=True),
