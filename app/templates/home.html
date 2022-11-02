@@ -5,6 +5,9 @@
         <h1>Welcome {{session.userinfo.name}}!</h1>
         <p><a href="/logout">Logout</a></p>
         <div><pre>{{pretty}}</pre></div>
+        {% if isadmin %}
+            <h2> Welcome Admin! </h2>
+        {% endif %}
     {% else %}
         <h1>Welcome Guest</h1>
         <p><a href="/login">Login</a></p>

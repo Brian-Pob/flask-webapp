@@ -1,7 +1,7 @@
 import sys
 from flask import render_template, redirect, url_for, session
 from app import app, db
-from app.models import User, Post
+from app.models import User, Post, admins
 import json
 import requests
 from sqlalchemy import select, or_
@@ -28,23 +28,26 @@ def index():
 @app.route("/home")
 def home():
     users = []
+    uid = -1
     try:
         uinfo = dict(session).get('user', None)
         uinfo = dict(uinfo).get('userinfo', None)
-        stmt = select(User)
+        stmt = select(User.id).where(User.email == uinfo['email'])
         try:
             users = db.session.execute(stmt).first() 
+            print(type(users))
+            print((users._asdict()))
+            uid = users._asdict()['id']
             parsed = json.dumps((session), indent=4) 
-        except:
+        except Exception as e:
             print("Error in db access")
-    except:
+    except Exception as e:
+        print(e)
         print("Error in user session")
+     
     posts = asyncio.run(getposts())
-    print("Print posts")
     sys.stdout.flush()
-    print(posts[0:50])
-    sys.stdout.flush()
-    return render_template("home.html", session=dict(session).get('user', None), users=users, posts=posts) 
+    return render_template("home.html", session=dict(session).get('user', None), users=users, posts=posts, isadmin=isadmin(uid)) 
 
 async def getposts():
     async with httpx.AsyncClient() as s:
@@ -54,3 +57,13 @@ async def getposts():
         posts = [story.json() for story in posts]
         return posts
 
+def isadmin(user_id):
+    try:
+        stmt = select(admins).where(admins.c.user_id == user_id)
+        admin = db.session.execute(stmt).first()
+        print(admin)
+        sys.stdout.flush()
+        return admin != None
+    except Exception as e:
+        print(e)
+        return False
