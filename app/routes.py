@@ -39,9 +39,9 @@ def home():
     for i in range(10):
         extension = "item/" + str(response.json()[i]) + ".json?print=pretty"
         new_response = requests.get(base_url + extension)
-        dt = datetime.datetime.fromtimestamp(new_response.json()['time'])
-        new_response.json()['time'] = dt
-        print(new_response.json()['time'])
-        to_return.append(new_response.json())
+        temp_response = new_response.json()
+        dt = datetime.datetime.fromtimestamp(temp_response['time'])
+        temp_response['time'] = dt
+        to_return.append(temp_response)
 
     return render_template("home.html", session=dict(session).get('user', None), users=users, posts=to_return) 
