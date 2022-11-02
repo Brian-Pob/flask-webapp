@@ -19,6 +19,7 @@ testonline:
   script:
   - python3 -m pip install requests
   - python3 app/tests/online_test.py
+  - python3 app/tests/willfail.py
 
 
 # You can copy and paste this template into a new `.gitlab-ci.yml` file.
