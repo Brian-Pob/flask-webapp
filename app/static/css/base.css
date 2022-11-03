@@ -16,12 +16,6 @@ button {
 .Dislike {
 	background-color: red;
 }
-nav a {
-  color: #66FCF1;
-  font-size: 3em;
-  margin-left: 50px;
-  text-decoration: none;
-} 
 
 .url:link, .url:visited{
   color: #66FCF1;
@@ -31,15 +25,16 @@ nav a {
   color: #45A29E;
 }
 
-.Login:link, .Login:visited {
+.navBar:link, .navBar:visited {
   color: #66FCF1;
+  font-size: 2.5em;
+  margin-left: 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  margin-left: 800px;
 }
 
-.Login:hover, .Login:active {
+.navBar:hover, .navBar:active {
   color: #45A29E;
 }
 

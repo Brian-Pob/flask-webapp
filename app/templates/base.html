@@ -8,13 +8,12 @@
 </head>
 <body>
     <nav>
-        <a href="#">FlaskApp</a>
-        <a href="#">About</a>
+        <a  class="navBar" href="#">FlaskApp</a>
+        <a class="navBar" href="#">About</a>
         {% if session %}
-        <a class="Login" href="/logout">Logout</a>
-        <div><pre>{{pretty}}</pre></div>
+        <a class="navBar" href="/logout">Logout</a>
         {% else %}
-        <a class="Login" href="/login">Login</a>
+        <a class="navBar" href="/login">Login</a>
         {% endif %}
     </nav>
     <hr class="lightGrey">
