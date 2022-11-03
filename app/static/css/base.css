@@ -52,7 +52,7 @@ button:hover, button:active, button:focus {
   box-shadow: 5px 10px #171c22;
 }
 
-.home {
+.home, .about {
   background-color: #0B0C10;
 }
 

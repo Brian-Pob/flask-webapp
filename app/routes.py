@@ -46,3 +46,7 @@ def home():
         temp_response['time'] = hours
         to_return.append(temp_response)
     return render_template("home.html", session=dict(session).get('user', None), users=users, posts=to_return) 
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
