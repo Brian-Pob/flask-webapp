@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %} - FlaskApp</title>
-    <style>
-        nav a {
-            color: #d64161;
-            font-size: 3em;
-            margin-left: 50px;
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/myfavicon.ico') }}">
 </head>
 <body>
     <nav>
-        <a href="#">FlaskApp</a>
-        <a href="#">About</a>
+        <a class="navBar" href="/">FlaskApp</a>
+        <a class="navBar" href="/home">Home</a>
+        <a class="navBar" href="/about">About</a>
+        {% if session %}
+        <a class="navBar" href="/logout">Logout</a>
+        {% else %}
+        <a class="navBar" href="/login">Login</a>
+        {% endif %}
     </nav>
     <hr>
     <div class="content">

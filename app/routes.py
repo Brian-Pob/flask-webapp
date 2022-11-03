@@ -4,6 +4,7 @@ from app.models import User, Post
 import json
 import requests
 from sqlalchemy import select, or_
+import datetime
 
 @app.route("/")
 def index():
@@ -31,13 +32,21 @@ def home():
             print("Error in db access")
     except:
         print("Error in user session")
-
     base_url = 'https://hacker-news.firebaseio.com/v0/'
     response = requests.get(base_url + "topstories.json")
     to_return = []
     for i in range(10):
         extension = "item/" + str(response.json()[i]) + ".json?print=pretty"
         new_response = requests.get(base_url + extension)
-        to_return.append(new_response.json())
-
+        temp_response = new_response.json()
+        current_time = datetime.datetime.now()
+        time_posted = datetime.datetime.fromtimestamp(temp_response['time'])
+        time_since = current_time - time_posted
+        hours, rem = divmod(time_since.seconds, 3600)
+        temp_response['time'] = hours
+        to_return.append(temp_response)
     return render_template("home.html", session=dict(session).get('user', None), users=users, posts=to_return) 
+
+@app.route("/about")
+def about():
+    return render_template("about.html")

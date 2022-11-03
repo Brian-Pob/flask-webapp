@@ -1,23 +1,21 @@
 {% extends 'base.html' %}
-{% block content %} 
-<body>
-    {% if session %}
-        <h1>Welcome {{session.userinfo.name}}!</h1>
-        <p><a href="/logout">Logout</a></p>
-        <div><pre>{{pretty}}</pre></div>
-    {% else %}
-        <h1>Welcome Guest</h1>
-        <p><a href="/login">Login</a></p>
-    {% endif %}
-<h1>API Data</h1>
-<div><pre>{{pretty}}</pre></div>
+{% block content %}
+<body class="home">
+<header>Top Stories</header>
 {% for post in posts %}
-	<div>
-	<a href="{{post['url']}}"><h3>{{post["title"]}}</h3></a>
-	<p>{{post["by"]}}</p>
-	<button>Like</button>
-	<button>Dislike</button>
+	<div class="posts">
+		<a class="url" href="{{post['url']}}"><h3>{{post["title"]}}</h3></a>
+		{% if post["time"] == 1 %}
+		<p class="text">Posted by {{post["by"]}} {{post["time"]}} hour ago</p>
+		{% elif post["time"] == 0 %}
+		<p class="text">Posted by {{post["by"]}} less than an hour ago</p>
+		{% else %}
+		<p class="text">Posted by {{post["by"]}} {{post["time"]}} hours ago</p>
+		{% endif %}
+		<button class="Like">Like</button>
+		<button class="Dislike">Dislike</button>
 	</div>
+	<br>
 {% endfor %}
   </body>
 {% endblock %}
