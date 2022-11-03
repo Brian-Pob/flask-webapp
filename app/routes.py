@@ -32,7 +32,6 @@ def home():
             print("Error in db access")
     except:
         print("Error in user session")
-
     base_url = 'https://hacker-news.firebaseio.com/v0/'
     response = requests.get(base_url + "topstories.json")
     to_return = []
@@ -46,5 +45,4 @@ def home():
         hours, rem = divmod(time_since.seconds, 3600)
         temp_response['time'] = hours
         to_return.append(temp_response)
-
     return render_template("home.html", session=dict(session).get('user', None), users=users, posts=to_return) 
