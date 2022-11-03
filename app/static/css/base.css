@@ -50,7 +50,8 @@ button:hover, button:active, button:focus {
   margin-left: 150px;
   margin-right: 150px;
   border: 1px solid;
-  padding: 10px;
+  padding-top: -10px;
+  padding-bottom: 10px;
   box-shadow: 5px 10px #171c22;
 }
 
