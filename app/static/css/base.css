@@ -1,6 +1,3 @@
-h3 {
-}
-
 button {
   border: none;
   color: white;
@@ -19,12 +16,15 @@ button {
 .Dislike {
 	background-color: red;
 }
-
 nav a {
-  color: #d64161;
+  color: red;
   font-size: 3em;
   margin-left: 50px;
   text-decoration: none;
+} 
+
+.url{
+  color: blue;
 }
 
 .Login:link, .Login:visited {
