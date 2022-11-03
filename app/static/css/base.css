@@ -47,6 +47,8 @@ button:hover, button:active, button:focus {
 
 .posts {
   background-color: #1f2833;
+  margin-left: 150px;
+  margin-right: 150px;
   border: 1px solid;
   padding: 10px;
   box-shadow: 5px 10px #171c22;
@@ -54,12 +56,20 @@ button:hover, button:active, button:focus {
 
 .home, .about {
   background-color: #0B0C10;
+  text-align: center;
 }
 
-h1 {
+header {
   color: #66FCF1;
+  font-size: 3em;
+  margin-bottom: 10px;
+  margin-top: 20px
 }
 
 .lightGrey{
   color: #C5C6C7
+}
+
+.about {
+  text-align: center;
 }
