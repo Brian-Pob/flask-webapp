@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-<body>
+<body class="home">
 <h1>Top Stories</h1>
-<div><pre>{{pretty}}</pre></div>
 {% for post in posts %}
 	<div class="posts">
 		<a class="url" href="{{post['url']}}"><h3>{{post["title"]}}</h3></a>
 		{% if post["time"] == 1 %}
-		<p>Posted by {{post["by"]}} {{post["time"]}} hour ago</p>
+		<p class="lightGrey">Posted by {{post["by"]}} {{post["time"]}} hour ago</p>
 		{% elif post["time"] == 0 %}
-		<p>Posted by {{post["by"]}} less than an hour ago</p>
+		<p class="lightGrey">Posted by {{post["by"]}} less than an hour ago</p>
 		{% else %}
-		<p>Posted by {{post["by"]}} {{post["time"]}} hours ago</p>
+		<p class="lightGrey">Posted by {{post["by"]}} {{post["time"]}} hours ago</p>
 		{% endif %}
 		<button class="Like">Like</button>
 		<button class="Dislike">Dislike</button>

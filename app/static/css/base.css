@@ -17,20 +17,22 @@ button {
 	background-color: red;
 }
 nav a {
-  color: red;
+  color: #66FCF1;
   font-size: 3em;
   margin-left: 50px;
   text-decoration: none;
 } 
 
-.url{
-  color: blue;
+.url:link, .url:visited{
+  color: #66FCF1;
+}
+
+.url:hover, .url:active {
+  color: #45A29E;
 }
 
 .Login:link, .Login:visited {
-  background-color: dodgerblue;
-  color: white;
-  padding: 14px 25px;
+  color: #66FCF1;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -38,11 +40,24 @@ nav a {
 }
 
 .Login:hover, .Login:active {
-  background-color: blue;
+  color: #45A29E;
 }
 
 .posts {
+  background-color: #1f2833;
   border: 1px solid;
   padding: 10px;
-  box-shadow: 5px 10px #888888;
+  box-shadow: 5px 10px #171c22;
+}
+
+.home {
+  background-color: #0B0C10;
+}
+
+h1 {
+  color: #66FCF1;
+}
+
+.lightGrey{
+  color: #C5C6C7
 }
