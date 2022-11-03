@@ -40,8 +40,11 @@ def home():
         extension = "item/" + str(response.json()[i]) + ".json?print=pretty"
         new_response = requests.get(base_url + extension)
         temp_response = new_response.json()
-        dt = datetime.datetime.fromtimestamp(temp_response['time'])
-        temp_response['time'] = dt
+        current_time = datetime.datetime.now()
+        time_posted = datetime.datetime.fromtimestamp(temp_response['time'])
+        time_since = current_time - time_posted
+        hours, rem = divmod(time_since.seconds, 3600)
+        temp_response['time'] = hours
         to_return.append(temp_response)
 
     return render_template("home.html", session=dict(session).get('user', None), users=users, posts=to_return) 
