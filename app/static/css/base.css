@@ -66,8 +66,9 @@ header {
   margin-top: 20px
 }
 
-.lightGrey{
-  color: #C5C6C7
+.text{
+  color: #C5C6C7;
+  margin-top: -5px
 }
 
 .about {

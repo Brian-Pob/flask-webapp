@@ -6,11 +6,11 @@
 	<div class="posts">
 		<a class="url" href="{{post['url']}}"><h3>{{post["title"]}}</h3></a>
 		{% if post["time"] == 1 %}
-		<p class="lightGrey">Posted by {{post["by"]}} {{post["time"]}} hour ago</p>
+		<p class="text">Posted by {{post["by"]}} {{post["time"]}} hour ago</p>
 		{% elif post["time"] == 0 %}
-		<p class="lightGrey">Posted by {{post["by"]}} less than an hour ago</p>
+		<p class="text">Posted by {{post["by"]}} less than an hour ago</p>
 		{% else %}
-		<p class="lightGrey">Posted by {{post["by"]}} {{post["time"]}} hours ago</p>
+		<p class="text">Posted by {{post["by"]}} {{post["time"]}} hours ago</p>
 		{% endif %}
 		<button class="Like">Like</button>
 		<button class="Dislike">Dislike</button>
