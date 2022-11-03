@@ -85,10 +85,11 @@ We obtained an SSL certificate for our site using LetsEncrypt's Certbot so our s
 
 For updates to our code base, we both work on our own virtual machines, and push any updates to our own dev branches. Once updates are working on our individual branch, we create a merge request with the main branch. After reviewing the merge request, the updates are merged into our main branch. Finally, we log into the server and pull the main branch with the updates.
 
-For updates to the server, we plan to implement unattended updates on Ubuntu following [this guide](https://www.cyberciti.biz/faq/how-to-set-up-automatic-updates-for-ubuntu-linux-18-04/).
-In case of a breaking update, we have a snapshot of our VM in DigitalOcean and are able to rollback to this snapshot. We also plan to set up
-a GitLab pipeline that will check our domain and see if it is still up. When it goes down, the pipeline should alert us. We can then
-use rollback our VM to the snapshot.
+For updates to the server, we implemented unattended-upgrades on Ubuntu following [this guide](https://www.cyberciti.biz/faq/how-to-set-up-automatic-updates-for-ubuntu-linux-18-04/).
+In case of a breaking update or any other issue, we have a snapshot of our VM in DigitalOcean and are able to rollback to this snapshot.
+
+We have also set up a GitLab pipeline that will periodically check our domain and see if our server is still up.
+When it goes down, the pipeline should alert us. We can then use rollback our VM to the snapshot.
 
 ## References
 
