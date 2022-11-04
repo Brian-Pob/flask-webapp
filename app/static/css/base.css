@@ -1,27 +1,77 @@
-h3 {
-}
-
 button {
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
+  border: none;
+  color: #0B0C10;
+  background-color: #45A29E;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
 }
 
-button:hover{
+button:hover, button:active, button:focus {
+  background-color: #66FCF1;
 }
 
-button:disabled{
-    background-color: gray !important;
-    cursor: not-allowed !important;
-}
-
+/*
 .Like {
 	background-color: green;
 }
 
 .Dislike {
 	background-color: red;
+}
+*/
+
+.url:link, .url:visited{
+  color: #66FCF1;
+}
+
+.url:hover, .url:active {
+  color: #45A29E;
+}
+
+.navBar:link, .navBar:visited {
+  color: #66FCF1;
+  font-size: 2.5em;
+  margin-left: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.navBar:hover, .navBar:active {
+  color: #45A29E;
+}
+
+.posts {
+  background-color: #1f2833;
+  margin-left: 150px;
+  margin-right: 150px;
+  border: 1px solid;
+  padding-top: -10px;
+  padding-bottom: 10px;
+  box-shadow: 5px 10px #171c22;
+}
+
+.home, .about {
+  background-color: #0B0C10;
+  text-align: center;
+}
+
+header {
+  color: #66FCF1;
+  font-size: 3em;
+  margin-bottom: 10px;
+  margin-top: 20px
+}
+
+.text{
+  color: #C5C6C7;
+  margin-top: -5px
+}
+
+.about {
+  text-align: center;
 }
