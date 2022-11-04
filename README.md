@@ -91,6 +91,10 @@ In case of a breaking update or any other issue, we have a snapshot of our VM in
 We have also set up a GitLab pipeline that will periodically check our domain and see if our server is still up.
 When it goes down, the pipeline should alert us. We can then use rollback our VM to the snapshot.
 
+## Server config files
+
+Our config files for setting up the server are located in the `config` folder and are organized in folders by the service or program they configure.
+
 ## References
 
 https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-22-04
