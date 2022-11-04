@@ -6,7 +6,6 @@ from flask_migrate import Migrate
 from config import Config 
 from authlib.integrations.flask_client import OAuth
 
-
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
@@ -35,3 +34,4 @@ from app.auth import auth_bp
 app.register_blueprint(auth_bp)
 
 from app import routes, models
+

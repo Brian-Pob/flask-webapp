@@ -1,7 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <body class="home">
 <header>Top Stories</header>
+    {% if session %}
+        <h1>Welcome {{session.userinfo.name}}!</h1>
+        <p><a href="/logout">Logout</a></p>
+        <div><pre>{{pretty}}</pre></div>
+        {% if isadmin %}
+            <h2> Welcome Admin! </h2>
+        {% endif %}
+    {% else %}
+        <h1>Welcome Guest</h1>
+        <p><a href="/login">Login</a></p>
+    {% endif %}
+<h1>API Data</h1>
+<div><pre>{{pretty}}</pre></div>
 {% for post in posts %}
 	<div class="posts">
 		<a class="url" href="{{post['url']}}"><h3>{{post["title"]}}</h3></a>
@@ -12,8 +26,14 @@
 		{% else %}
 		<p class="text">Posted by {{post["by"]}} {{post["time"]}} hours ago</p>
 		{% endif %}
-		<button class="Like">Like</button>
-		<button class="Dislike">Dislike</button>
+
+        {% if session %}
+            <button class="Like">Like</button>
+            <button class="Dislike">Dislike</button>
+        {% else %}
+            <button class="Like" disabled>Like</button>
+            <button class="Dislike" disabled>Dislike</button>
+        {% endif %}
 	</div>
 	<br>
 {% endfor %}

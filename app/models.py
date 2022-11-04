@@ -1,5 +1,6 @@
 #from cop4521 import db
 from . import db
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True) # auth0 id 
@@ -17,3 +18,20 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post {} by {} : {}>'.format(self.title, self.by, self.id)
+
+liked_posts = db.Table(
+    "liked_posts",
+    db.Column("user_id", db.ForeignKey(User.id), primary_key=True),
+    db.Column("post_id", db.ForeignKey(Post.id), primary_key=True),
+)
+
+disliked_posts = db.Table(
+    "disliked_posts",
+    db.Column("user_id", db.ForeignKey(User.id), primary_key=True),
+    db.Column("post_id", db.ForeignKey(Post.id), primary_key=True),
+)
+
+admins = db.Table(
+    "admins",
+    db.Column("user_id", db.ForeignKey(User.id), primary_key=True),
+)
