@@ -70,3 +70,8 @@ def isadmin(user_id):
     except Exception as e:
         print(e)
         return False
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
