@@ -40,6 +40,12 @@ def home():
         print(e)
         print("Error in user session") 
     posts = asyncio.run(getposts())
+    current_time = datetime.datetime.now()
+    for post in posts:
+        time_posted = datetime.datetime.fromtimestamp(post['time'])
+        time_since = current_time - time_posted
+        hours, rem = divmod(time_since.seconds, 3600)
+        post['time'] = hours
     sys.stdout.flush()
     return render_template("home.html", session=dict(session).get('user', None), users=users, posts=posts, isadmin=isadmin(uid)) 
 
