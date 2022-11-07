@@ -18,7 +18,7 @@ anyio = "*"
 flask = {extras = ["async"], version = "*"}
 
 [scripts]
-gunilocal= "gunicorn --workers 3 --bind 0.0.0.0:8000 -m 007 --reload wsgi:app"
+gunilocal= "gunicorn -w 5 -b 0.0.0.0:8000 -m 007 --reload -t 900 wsgi:app"
 guni =     "gunicorn --workers 3 --bind unix:cop4521.sock -m 007 --daemon --reload wsgi:app"
 gunidebug ="gunicorn --workers 3 --bind unix:cop4521.sock -m 007 --reload wsgi:app"
 

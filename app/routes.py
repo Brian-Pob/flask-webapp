@@ -38,8 +38,8 @@ def home():
             print("Error in db access")
     except Exception as e:
         print(e)
-        print("Error in user session") 
-    posts = asyncio.run(getposts())
+        print("Error in user session")
+    posts = get_posts()
     current_time = datetime.datetime.now()
     for post in posts:
         time_posted = datetime.datetime.fromtimestamp(post['time'])
@@ -47,12 +47,33 @@ def home():
         hours, rem = divmod(time_since.seconds, 3600)
         post['time'] = hours
     sys.stdout.flush()
-    return render_template("home.html", session=dict(session).get('user', None), users=users, posts=posts, isadmin=isadmin(uid)) 
+    return render_template(
+        "home.html",
+        session=dict(session).get('user', None),
+        users=users, posts=posts, isadmin=isadmin(uid))
 
-async def getposts():
+
+def get_posts():
+    with requests.Session() as s:
+        
+        @cache.memoize(timeout=604800) # one week
+        def get_story_json(story_id):
+            extension = "item/" + str(story_id) + ".json"
+            new_response = s.get(base_url + extension)
+            return new_response.json()
+
+        top = s.get(base_url + "topstories.json").json()
+        stories = [get_story_json(story_id) for story_id in top[0:100]]
+        return stories
+
+
+async def get_posts_async():
     async with httpx.AsyncClient() as s:
         top = (await s.get(base_url + 'topstories.json')).json()
-        tasks = [s.get(base_url+'/item/'+str(article)+'.json') for article in top[0:10]]
+        tasks = [
+            s.get(base_url+'/item/'+str(article)+'.json')
+            for article in top[0:10]
+        ]
         posts = await asyncio.gather(*tasks)
         posts = [story.json() for story in posts]
         return posts
