@@ -18,7 +18,24 @@ import datetime
 
 @app.route("/")
 def index():
-    return render_template("land.html")
+    users = []
+    uid = -1
+    try:
+        uinfo = dict(session).get('user', None)
+        uinfo = dict(uinfo).get('userinfo', None)
+        stmt = select(User.id).where(User.email == uinfo['email'])
+        try:
+            users = db.session.execute(stmt).first() 
+            print(type(users))
+            print((users._asdict()))
+            uid = users._asdict()['id']
+            parsed = json.dumps((session), indent=4) 
+        except Exception as e:
+            print("Error in db access")
+    except Exception as e:
+        print(e)
+        print("Error in user session")
+    return render_template("land.html", session=dict(session).get('user', None), isadmin=isadmin(uid))
     
 @app.route("/home")
 def home():
@@ -93,3 +110,34 @@ def isadmin(user_id):
 def about():
     return render_template("about.html")
 
+@app.route("/admin")
+def admin():
+    users = []
+    uid = -1
+    try:
+        uinfo = dict(session).get('user', None)
+        uinfo = dict(uinfo).get('userinfo', None)
+        stmt = select(User.id).where(User.email == uinfo['email'])
+        try:
+            users = db.session.execute(stmt).first() 
+            print(type(users))
+            print((users._asdict()))
+            uid = users._asdict()['id']
+            parsed = json.dumps((session), indent=4) 
+        except Exception as e:
+            print("Error in db access")
+    except Exception as e:
+        print(e)
+        print("Error in user session")
+    if isadmin(uid):
+        return render_template("admin.html")
+    else:
+        return redirect("/error")
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+@app.route("/error")
+def error():
+    return render_template("error.html")
