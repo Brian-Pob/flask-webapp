@@ -1,5 +1,6 @@
 import sys
-from flask import request, render_template, redirect, url_for, session
+import os
+from flask import request, render_template, redirect, url_for, session, send_from_directory
 from app import app, db
 from app.models import User, Post, admins, liked_posts, disliked_posts
 import json
@@ -16,7 +17,6 @@ cache = Cache(app)
 base_url = 'https://hacker-news.firebaseio.com/v0/'
 
 import datetime
-
 @app.route("/")
 def index():
     users = []
@@ -235,3 +235,7 @@ def profile():
 @app.route("/error")
 def error():
     return render_template("error.html")
+
+@app.route("/favicon.ico")
+def favicon():
+	return send_from_directory(os.path.join(app.root_path, 'static/images'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
