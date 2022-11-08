@@ -133,12 +133,6 @@ def get_user_id():
     except Exception as e:
         print(e)
         print("Error in user session")
-<<<<<<< HEAD
-    #if isadmin(uid):
-    return render_template("admin.html")
-    #else:
-    #    return redirect("/error")
-=======
 
 def vote(vote_type):
 
@@ -225,11 +219,10 @@ def like():
 @app.route("/admin")
 def admin():
     uid = get_user_id()
-    if isadmin(uid):
-        return render_template("admin.html")
-    else:
-        return redirect("/error")
->>>>>>> 77ab3b5f0160c62043a843ac48496692de465dd5
+#    if isadmin(uid):
+    return render_template("admin.html")
+#    else:
+#        return redirect("/error")
 
 @app.route("/profile")
 def profile():
