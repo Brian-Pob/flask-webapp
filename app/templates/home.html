@@ -28,7 +28,7 @@
         <p class="text">Keywords: <b>{{post["keywords"]}}</b></p>
         {% if session %}
             <div class="button-group" >
-            <form action="/like" method="post">
+            <form action="/like" method="post" >
                 {% set is_liked='' %}
                 {% if post['id'] in liked_posts %}
                     {% set is_liked='Liked' %}
@@ -36,7 +36,7 @@
                     <button type="submit" name="like" value="{{post['id']}}"
                     class = "{{is_liked}}">Like</button> 
             </form>
-            <form action="/dislike" method="post">
+            <form action="/dislike" method="post" >
                 {% set is_disliked='' %}
                 {% if post['id'] in disliked_posts %}
                     {% set is_disliked='Disliked' %}
