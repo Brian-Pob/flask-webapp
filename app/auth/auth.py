@@ -28,7 +28,7 @@ def callback():
     newuser = User(username=uinfo.email, email=uinfo.email)
     # Setting username = email for now.
     db.session.add(newuser)
-    db.session.commit()    
+    db.session.commit()
     print("New user added to database")
     return redirect("/")
 

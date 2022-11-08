@@ -14,15 +14,13 @@ button:hover, button:active, button:focus {
   background-color: #66FCF1;
 }
 
-/*
-.Like {
+.Liked {
 	background-color: green;
 }
 
-.Dislike {
+.Disliked {
 	background-color: red;
 }
-*/
 
 .url:link, .url:visited{
   color: #66FCF1;
@@ -74,4 +72,11 @@ header {
 
 .about {
   text-align: center;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
