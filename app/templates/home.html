@@ -4,17 +4,16 @@
 <body class="home">
 <header>Top Stories</header>
     {% if session %}
-        <h1>Welcome {{session.userinfo.name}}!</h1>
+        <h1 class="text">Welcome {{session.userinfo.name}}!</h1>
         <p><a href="/logout">Logout</a></p>
         <div><pre>{{pretty}}</pre></div>
         {% if isadmin %}
-            <h2> Welcome Admin! </h2>
+            <h2 class="text"> Welcome Admin! </h2>
         {% endif %}
     {% else %}
-        <h1>Welcome Guest</h1>
+        <h1 class="text">Welcome Guest</h1>
         <p><a href="/login">Login</a></p>
     {% endif %}
-<h1>API Data</h1>
 <div><pre>{{pretty}}</pre></div>
 {% for post in posts %}
 	<div class="posts">
@@ -28,11 +27,22 @@
 		{% endif %}
 
         {% if session %}
-            <button class="Like">Like</button>
-            <button class="Dislike">Dislike</button>
-        {% else %}
-            <button class="Like" disabled>Like</button>
-            <button class="Dislike" disabled>Dislike</button>
+            {% if post['id'] in liked_posts %}
+                {% set is_liked='Liked' %}
+            {% endif %}
+            {% if post['id'] in disliked_posts %}
+                {% set is_disliked='Disliked' %}
+            {% endif %}
+            <div class="button-group" >
+                <form action="/like" method="post">
+                    <button type="submit" name="like" value="{{post['id']}}"
+                    class = "Like {{is_liked}}">Like</button> 
+                </form>
+                <form action="/dislike" method="post">
+                    <button type="submit" name="dislike" value="{{post['id']}}"
+                    class = "Dislike {{is_disliked}}">Dislike</button> 
+                </form>
+            </div>
         {% endif %}
 	</div>
 	<br>
