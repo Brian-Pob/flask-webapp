@@ -199,3 +199,18 @@ def dislike():
 def like():
     vote("like")
     return redirect(request.referrer)
+@app.route("/admin")
+def admin():
+    uid = get_user_id()
+    if isadmin(uid):
+        return render_template("admin.html")
+    else:
+        return redirect("/error")
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+@app.route("/error")
+def error():
+    return render_template("error.html")
