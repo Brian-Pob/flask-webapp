@@ -129,10 +129,10 @@ def admin():
     except Exception as e:
         print(e)
         print("Error in user session")
-    if isadmin(uid):
-        return render_template("admin.html")
-    else:
-        return redirect("/error")
+    #if isadmin(uid):
+    return render_template("admin.html")
+    #else:
+    #    return redirect("/error")
 
 @app.route("/profile")
 def profile():

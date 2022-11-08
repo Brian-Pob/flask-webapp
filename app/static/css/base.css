@@ -55,7 +55,7 @@ button:hover, button:active, button:focus {
   box-shadow: 5px 10px #171c22;
 }
 
-.home, .about {
+.home, .about, .profile, .admin, .error {
   background-color: #0B0C10;
   text-align: center;
 }
