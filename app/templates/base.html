@@ -11,6 +11,10 @@
         <a class="navBar" href="/">FlaskApp</a>
         <a class="navBar" href="/home">Home</a>
         <a class="navBar" href="/about">About</a>
+        {% if isadmin %}
+        <a class="navBar" href="/admin">Admin</a>
+        {% endif %}
+        <a class="navBar" href="/profile">Profile</a>
         {% if session %}
         <a class="navBar" href="/logout">Logout</a>
         {% else %}
