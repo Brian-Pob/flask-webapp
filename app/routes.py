@@ -155,17 +155,39 @@ def vote(vote_type):
             insert(disliked_posts).
             values(user_id=uid, post_id=mypost['id'])
         )
+        rmstmt = (
+            delete(liked_posts).
+            where(
+                liked_posts.c.user_id==uid,
+                liked_posts.c.post_id==mypost['id']
+            )
+        )
     elif vote_type == "like":
         stmt = (
             insert(liked_posts).
             values(user_id=uid, post_id=mypost['id'])
         )
+        rmstmt = (
+            delete(disliked_posts).
+            where(
+                disliked_posts.c.user_id==uid,
+                disliked_posts.c.post_id==mypost['id']
+            )
+        )
 
     try:
         db.session.execute(stmt)
+        db.session.execute(rmstmt)
         db.session.commit()
     except Exception as e:
-        print("Except")
+            db.session.rollback()
+    else:
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
+            print("Integrity error")
+            print("Except")
 
 
 @app.route("/dislike", methods = ['POST'])

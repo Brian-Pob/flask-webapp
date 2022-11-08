@@ -34,7 +34,7 @@
                     {% set is_liked='Liked' %}
                 {% endif %}
                     <button type="submit" name="like" value="{{post['id']}}"
-                    class = "Like {{is_liked}}">Like</button> 
+                    class = "{{is_liked}}">Like</button> 
             </form>
             <form action="/dislike" method="post">
                 {% set is_disliked='' %}
@@ -42,7 +42,7 @@
                     {% set is_disliked='Disliked' %}
                 {% endif %}
                     <button type="submit" name="dislike" value="{{post['id']}}"
-                    class = "Dislike {{is_disliked}}">Dislike</button> 
+                    class = "{{is_disliked}}">Dislike</button> 
             </form>
             </div>
         {% endif %}
