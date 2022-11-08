@@ -17,7 +17,14 @@ class Post(db.Model):
     url = db.Column(db.String(500))
 
     def __repr__(self):
-        return '<Post {} by {} : {}>'.format(self.title, self.by, self.id)
+        mydict = {
+            "id":self.id,
+            "post_type":self.post_type,
+            "by":self.by,
+            "title":self.title,
+            "url":self.url
+        }
+        return str(mydict)
 
 liked_posts = db.Table(
     "liked_posts",
