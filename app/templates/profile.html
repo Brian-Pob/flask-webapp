@@ -2,6 +2,8 @@
 {% block content %}
 <body class="profile">
     <header>Profile</header>
-    <p class="text">This page will contain information about our website, but for now this is just filler text.</p>
+    <br>
+    <h2 class="text">Welcome {{session.userinfo.name}}!</h2>
+    <p class="text">This page will contain information about user profiles, but for now this is just filler text.</p>
 </body>
 {% endblock %}
