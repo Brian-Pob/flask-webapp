@@ -226,7 +226,7 @@ def admin():
 
 @app.route("/profile")
 def profile():
-    return render_template("profile.html")
+    return render_template("profile.html", session=dict(session).get('user', None))
 
 @app.route("/error")
 def error():
