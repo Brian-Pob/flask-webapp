@@ -1,3 +1,4 @@
+import random
 import sys
 import os
 from flask import request, render_template, redirect, url_for, session, send_from_directory
@@ -11,7 +12,8 @@ from flask_caching import Cache
 import httpx
 import asyncio
 import ast
-
+import spacy
+nlp = spacy.load("en_core_web_lg")
 cache = Cache(app)
 
 base_url = 'https://hacker-news.firebaseio.com/v0/'
@@ -69,8 +71,19 @@ def get_story_json(story_id, s):
     @cache.memoize(timeout=604800) # one week
     def inner_get_json(story_id):
         extension = "item/" + str(story_id) + ".json"
-        new_response = s.get(base_url + extension)
-        return new_response.json()
+        new_response = s.get(base_url + extension).json()
+        doc = nlp(new_response['title'])
+        new_response['keywords'] = []
+        for i in doc.ents:
+            if isinstance(i.text, list):
+                new_response['keywords'] = i.text
+            else:
+                new_response['keywords'] = [i.text]
+        if len(new_response['keywords']) < 2:
+            rands = random.choices(new_response['title'].split(), k=2)
+            new_response['keywords'] += rands
+        sys.stdout.flush()
+        return new_response
     return inner_get_json(story_id)
 
 def get_voted_posts(uid, vote_type):
@@ -84,8 +97,6 @@ def get_voted_posts(uid, vote_type):
         res = db.session.execute(stmt).all()
 
     res = [i[1] for i in res]
-    print((res))
-    print(type(res))
     sys.stdout.flush()
 
     return res
