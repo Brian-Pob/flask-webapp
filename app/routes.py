@@ -220,7 +220,7 @@ def like():
 def admin():
     uid = get_user_id()
 #    if isadmin(uid):
-    return render_template("admin.html")
+    return render_template("admin.html", session=dict(session).get('user', None))
 #    else:
 #        return redirect("/error")
 
