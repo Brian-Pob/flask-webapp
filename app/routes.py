@@ -25,8 +25,8 @@ def index():
 def home():
     uid = get_user_id()
     posts = get_posts()
-    #liked_posts = get_voted_posts(uid, posts, vote="Like")
-    #disliked_posts = get_voted_posts(uid, posts, vote="Dislike")
+    liked_posts = get_voted_posts(uid, vote_type="like")
+    disliked_posts = get_voted_posts(uid, vote_type="dislike")
     current_time = datetime.datetime.now()
     for post in posts:
         time_posted = datetime.datetime.fromtimestamp(post['time'])
@@ -38,7 +38,7 @@ def home():
         "home.html",
         session=dict(session).get('user', None),
         posts=posts, isadmin=isadmin(uid),
-        #liked_posts=liked_posts, disliked_posts=disliked_posts
+        liked_posts=liked_posts, disliked_posts=disliked_posts
         )
 
 
@@ -56,7 +56,22 @@ def get_story_json(story_id, s):
         return new_response.json()
     return inner_get_json(story_id)
 
+def get_voted_posts(uid, vote_type):
+    stmt = ""
+    res = ""
+    if vote_type == "dislike":
+        stmt = select(disliked_posts).where(disliked_posts.c.user_id==uid)
+        res = db.session.execute(stmt).all()
+    elif vote_type == "like":
+        stmt = select(liked_posts).where(liked_posts.c.user_id==uid)
+        res = db.session.execute(stmt).all()
 
+    res = [i[1] for i in res]
+    print((res))
+    print(type(res))
+    sys.stdout.flush()
+
+    return res
 
 async def get_posts_async():
     async with httpx.AsyncClient() as s:
@@ -103,14 +118,11 @@ def get_user_id():
         print("Error in user session")
 
 def vote(vote_type):
-    # 0 - dislike
-    # 1 - like
-    vote_types = ['dislike', 'like']
 
     uid = get_user_id()
     story_id = ""
     if request.method == 'POST':
-        story_id = request.form[vote_types[vote_type]]
+        story_id = request.form[vote_type]
     
     story = {}
     with requests.Session() as s:
@@ -138,12 +150,12 @@ def vote(vote_type):
     mypost = db.session.execute(stmt).first()
     mypost = str(mypost[0])
     mypost = (ast.literal_eval(mypost))
-    if vote_type == 0:
+    if vote_type == "dislike":
         stmt = (
             insert(disliked_posts).
             values(user_id=uid, post_id=mypost['id'])
         )
-    else:
+    elif vote_type == "like":
         stmt = (
             insert(liked_posts).
             values(user_id=uid, post_id=mypost['id'])
@@ -158,10 +170,10 @@ def vote(vote_type):
 
 @app.route("/dislike", methods = ['POST'])
 def dislike():
-    vote(0)
+    vote("dislike")
     return redirect(request.referrer)
 
 @app.route("/like", methods = ['POST'])
 def like():
-    vote(1)
+    vote("like")
     return redirect(request.referrer)

@@ -27,21 +27,23 @@
 		{% endif %}
 
         {% if session %}
-            {% if post['id'] in liked_posts %}
-                {% set is_liked='Liked' %}
-            {% endif %}
-            {% if post['id'] in disliked_posts %}
-                {% set is_disliked='Disliked' %}
-            {% endif %}
             <div class="button-group" >
-                <form action="/like" method="post">
+            <form action="/like" method="post">
+                {% set is_liked='' %}
+                {% if post['id'] in liked_posts %}
+                    {% set is_liked='Liked' %}
+                {% endif %}
                     <button type="submit" name="like" value="{{post['id']}}"
                     class = "Like {{is_liked}}">Like</button> 
-                </form>
-                <form action="/dislike" method="post">
+            </form>
+            <form action="/dislike" method="post">
+                {% set is_disliked='' %}
+                {% if post['id'] in disliked_posts %}
+                    {% set is_disliked='Disliked' %}
+                {% endif %}
                     <button type="submit" name="dislike" value="{{post['id']}}"
                     class = "Dislike {{is_disliked}}">Dislike</button> 
-                </form>
+            </form>
             </div>
         {% endif %}
 	</div>
