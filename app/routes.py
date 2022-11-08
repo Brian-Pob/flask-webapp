@@ -219,14 +219,18 @@ def like():
 @app.route("/admin")
 def admin():
     uid = get_user_id()
-#    if isadmin(uid):
-    return render_template("admin.html", session=dict(session).get('user', None))
-#    else:
-#        return redirect("/error")
+    if isadmin(uid):
+        return render_template("admin.html", session=dict(session).get('user', None))
+    else:
+        return redirect("/error")
 
 @app.route("/profile")
 def profile():
-    return render_template("profile.html", session=dict(session).get('user', None))
+    uid = get_user_id()
+    if uid:
+        return render_template("profile.html", session=dict(session).get('user', None))
+    else:
+        return redirect("/error")
 
 @app.route("/error")
 def error():
