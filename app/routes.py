@@ -1,5 +1,7 @@
+import random
 import sys
-from flask import request, render_template, redirect, url_for, session
+import os
+from flask import request, render_template, redirect, url_for, session, send_from_directory
 from app import app, db
 from app.models import User, Post, admins, liked_posts, disliked_posts
 import json
@@ -10,13 +12,13 @@ from flask_caching import Cache
 import httpx
 import asyncio
 import ast
-
+import spacy
+nlp = spacy.load("en_core_web_lg")
 cache = Cache(app)
 
 base_url = 'https://hacker-news.firebaseio.com/v0/'
 
 import datetime
-
 @app.route("/")
 def index():
     users = []
@@ -69,8 +71,19 @@ def get_story_json(story_id, s):
     @cache.memoize(timeout=604800) # one week
     def inner_get_json(story_id):
         extension = "item/" + str(story_id) + ".json"
-        new_response = s.get(base_url + extension)
-        return new_response.json()
+        new_response = s.get(base_url + extension).json()
+        doc = nlp(new_response['title'])
+        new_response['keywords'] = []
+        for i in doc.ents:
+            if isinstance(i.text, list):
+                new_response['keywords'] = i.text
+            else:
+                new_response['keywords'] = [i.text]
+        if len(new_response['keywords']) < 2:
+            rands = random.choices(new_response['title'].split(), k=2)
+            new_response['keywords'] += rands
+        sys.stdout.flush()
+        return new_response
     return inner_get_json(story_id)
 
 def get_voted_posts(uid, vote_type):
@@ -84,8 +97,6 @@ def get_voted_posts(uid, vote_type):
         res = db.session.execute(stmt).all()
 
     res = [i[1] for i in res]
-    print((res))
-    print(type(res))
     sys.stdout.flush()
 
     return res
@@ -114,7 +125,11 @@ def isadmin(user_id):
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return render_template(
+            "about.html",
+            session=dict(session).get('user', None),
+            isadmin=isadmin(get_user_id())
+        )
 
 def get_user_id():
     users = []
@@ -216,11 +231,13 @@ def dislike():
 def like():
     vote("like")
     return redirect(request.referrer)
+
 @app.route("/admin")
 def admin():
     uid = get_user_id()
     if isadmin(uid):
-        return render_template("admin.html", session=dict(session).get('user', None))
+        return render_template("admin.html", isadmin=isadmin(get_user_id()),
+        session=dict(session).get('user', None))
     else:
         return redirect("/error")
 
@@ -228,10 +245,21 @@ def admin():
 def profile():
     uid = get_user_id()
     if uid:
-        return render_template("profile.html", session=dict(session).get('user', None))
+        return render_template("profile.html",
+            session=dict(session).get('user', None),
+            isadmin=isadmin(get_user_id())
+            )
     else:
         return redirect("/error")
 
 @app.route("/error")
 def error():
     return render_template("error.html")
+
+@app.route("/favicon.ico")
+def favicon():
+	return send_from_directory(
+        os.path.join(app.root_path, 'static/images'),
+        'favicon.ico',
+        mimetype='image/vnd.microsoft.icon'
+    )

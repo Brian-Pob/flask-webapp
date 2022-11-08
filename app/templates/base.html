@@ -5,6 +5,8 @@
     <title>{% block title %} {% endblock %} - FlaskApp</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/myfavicon.ico') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/myfavicon.ico') }}">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body>
     <nav>
@@ -14,7 +16,7 @@
         {% if isadmin %}
         <a class="navBar" href="/admin">Admin</a>
         {% endif %}
-        {% if session %}
+        {% if session is not none %}
         <a class="navBar" href="/profile">Profile</a>
         <a class="navBar" href="/logout">Logout</a>
         {% else %}
