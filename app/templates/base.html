@@ -14,8 +14,8 @@
         {% if isadmin %}
         <a class="navBar" href="/admin">Admin</a>
         {% endif %}
+        {% if session is not none %}
         <a class="navBar" href="/profile">Profile</a>
-        {% if session %}
         <a class="navBar" href="/logout">Logout</a>
         {% else %}
         <a class="navBar" href="/login">Login</a>

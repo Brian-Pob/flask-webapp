@@ -114,7 +114,11 @@ def isadmin(user_id):
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return render_template(
+            "about.html",
+            session=dict(session).get('user', None),
+            isadmin=isadmin(get_user_id())
+        )
 
 def get_user_id():
     users = []
@@ -220,13 +224,13 @@ def like():
 def admin():
     uid = get_user_id()
     if isadmin(uid):
-        return render_template("admin.html")
+        return render_template("admin.html", isadmin=isadmin(get_user_id()))
     else:
         return redirect("/error")
 
 @app.route("/profile")
 def profile():
-    return render_template("profile.html")
+    return render_template("profile.html", isadmin=isadmin(get_user_id()))
 
 @app.route("/error")
 def error():
