@@ -25,7 +25,7 @@
 		{% else %}
 		<p class="text">Posted by {{post["by"]}} {{post["time"]}} hours ago</p>
 		{% endif %}
-
+        <p class="text">Keywords: <b>{{post["keywords"]}}</b></p>
         {% if session %}
             <div class="button-group" >
             <form action="/like" method="post">
