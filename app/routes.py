@@ -13,7 +13,7 @@ import httpx
 import asyncio
 import ast
 import spacy
-nlp = spacy.load("en_core_web_lg")
+nlp = spacy.load("en_core_web_sm")
 cache = Cache(app)
 
 base_url = 'https://hacker-news.firebaseio.com/v0/'
@@ -62,7 +62,7 @@ def home():
 def get_posts():
     with requests.Session() as s:
         top = s.get(base_url + "topstories.json").json()
-        stories = [get_story_json(story_id, s) for story_id in top[0:100]]
+        stories = [get_story_json(story_id, s) for story_id in top[0:50]]
         return stories
 
 def get_story_json(story_id, s):
@@ -78,8 +78,7 @@ def get_story_json(story_id, s):
             else:
                 new_response['keywords'] = [i.text]
         if len(new_response['keywords']) < 2:
-            rands = random.choices(new_response['title'].split(), k=2)
-            new_response['keywords'] += rands
+            new_response['keywords'] += [new_response['title'].split()[-1]]
         sys.stdout.flush()
         return new_response
     return inner_get_json(story_id)
