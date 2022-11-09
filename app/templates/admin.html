@@ -5,5 +5,39 @@
     <br>
     <h2 class="text">Welcome {{session.userinfo.name}}!</h2>
     <p class="text">This page can only be access by admins, but for now this is just filler text.</p>
+{% for post in posts %}
+{% set post_data=posts_data[post[1]|string] %} 
+    <div class="posts">
+        <a class="url" href="{{post_data['url']}}"><h3>{{post_data["title"]}}</h3></a>
+        {% if post["time"] == 1 %}
+        <p class="text">Posted by {{post_data["by"]}} {{post_data["time"]}} hour ago</p>
+        {% elif post["time"] == 0 %}
+        <p class="text">Posted by {{post_data["by"]}} less than an hour ago</p>
+        {% else %}
+        <p class="text">Posted by {{post_data["by"]}} {{post_data["time"]}} hours ago</p>
+        {% endif %}
+        <p class="text">Keywords: <b>{{post_data["keywords"]}}</b></p>
+        <p class="text">Liked by: <b>{{users[post[0]|string]}}</b></p>
+        {% if session %}
+            <div class="button-group" >
+            {% if post[1] in users_liked_posts[post[0]|string] %}
+                <form action="/remove_like" method="post" >
+                        {% set is_liked='Liked' %}
+                        <button type="submit" name="like" value="{{post[1]}}&{{post[0]}}"
+                        class = "{{is_liked}}">Like</button> 
+                </form>
+            {% endif %}
+            {% if post[1] in users_disliked_posts[post[0]|string] %}
+                <form action="/remove_dislike" method="post" >
+                        {% set is_disliked='Disliked' %}
+                        <button type="submit" name="dislike" value="{{post[1]}}&{{post[0]}}"
+                        class = "{{is_disliked}}">Disike</button> 
+                </form>
+            {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    <br>
+{% endfor %}
 </body>
 {% endblock %}

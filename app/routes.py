@@ -29,8 +29,6 @@ def index():
         stmt = select(User.id).where(User.email == uinfo['email'])
         try:
             users = db.session.execute(stmt).first() 
-            print(type(users))
-            print((users._asdict()))
             uid = users._asdict()['id']
             parsed = json.dumps((session), indent=4) 
         except Exception as e:
@@ -44,8 +42,8 @@ def index():
 def home():
     uid = get_user_id()
     posts = get_posts()
-    myliked_posts = get_voted_posts(uid, vote_type="like")
-    mydisliked_posts = get_voted_posts(uid, vote_type="dislike")
+    myliked_posts = [i[1] for i in get_voted_posts(uid, vote_type="like")]
+    mydisliked_posts = [i[1] for i in get_voted_posts(uid, vote_type="dislike")]
     current_time = datetime.datetime.now()
     for post in posts:
         time_posted = datetime.datetime.fromtimestamp(post['time'])
@@ -95,8 +93,7 @@ def get_voted_posts(uid, vote_type):
     elif vote_type == "like":
         stmt = select(liked_posts).where(liked_posts.c.user_id==uid)
         res = db.session.execute(stmt).all()
-
-    res = [i[1] for i in res]
+    #res = [i[1] for i in res]
     sys.stdout.flush()
 
     return res
@@ -116,7 +113,6 @@ def isadmin(user_id):
     try:
         stmt = select(admins).where(admins.c.user_id == user_id)
         admin = db.session.execute(stmt).first()
-        print(admin)
         sys.stdout.flush()
         return admin != None
     except Exception as e:
@@ -236,16 +232,48 @@ def like():
 def admin():
     uid = get_user_id()
     if isadmin(uid):
-        return render_template("admin.html", isadmin=isadmin(get_user_id()),
-        session=dict(session).get('user', None))
+        posts = get_posts_admin()
+        all_posts = get_posts()
+        for p in all_posts:
+            if "url" not in p:
+                p["url"] = ""
+
+        users =  get_user_list()
+        users_liked_posts = {}
+        users_disliked_posts = {}
+        for user_id in users:
+            users_liked_posts[str(user_id)] = [i[1] for i in get_voted_posts(user_id, vote_type="like")]
+            users_disliked_posts[str(user_id)] = [i[1] for i in get_voted_posts(user_id, vote_type="dislike")]
+
+        filtered = filter(
+            lambda post: post['id'] in [i[1] for i in posts],
+            all_posts
+        )
+        posts_list = list(filtered)
+        posts_data = {}
+        for p in posts_list:
+            posts_data[str(p["id"])] = p
+
+        print(users_liked_posts)
+        print(users_disliked_posts)
+        return render_template(
+            "admin.html",
+            isadmin=isadmin(get_user_id()),
+            session=dict(session).get('user', None),
+            posts=posts,
+            users=users,
+            posts_data=posts_data,
+            users_liked_posts=users_liked_posts,
+            users_disliked_posts=users_disliked_posts
+        )
     else:
         return redirect("/error")
 
 @app.route("/profile")
 def profile():
     uid = get_user_id()
-    myliked_posts = get_voted_posts(uid, vote_type="like")
-    mydisliked_posts = get_voted_posts(uid, vote_type="dislike")
+    myliked_posts = [i[1] for i in get_voted_posts(uid, vote_type="like")]
+    mydisliked_posts = [i[1] for i in get_voted_posts(uid, vote_type="dislike")]
     all_posts = get_posts()
     filtered = filter(
         lambda post: post['id'] in mydisliked_posts + myliked_posts,
@@ -297,13 +325,14 @@ def remove_like():
 
 def remove_vote(vote_type):
     uid = get_user_id()
+    story_id = ""
 
     if isadmin(uid):
-        print("Is an admin")
-
-    story_id = ""
-    if request.method == 'POST':
-        story_id = request.form[vote_type]
+        if request.method == 'POST':
+            story_id, uid = request.form[vote_type].split("&")
+    else:
+        if request.method == 'POST':
+            story_id = request.form[vote_type]
     
     stmt = select(Post).where(Post.id==story_id)
     mypost = db.session.execute(stmt).first()
@@ -338,3 +367,32 @@ def remove_vote(vote_type):
             db.session.rollback()
             print("Integrity error")
             print("Except")
+
+def get_posts_admin():
+    lstmt = (
+        select(liked_posts)
+    )
+    dstmt = (
+        select(disliked_posts)
+    )
+    res = db.session.execute(lstmt).all()
+    res += db.session.execute(dstmt).all()
+    res.sort(key=lambda r:r[1])
+    print(res)
+    return res
+
+def get_user_list():
+    stmt = (
+        select(User.id, User.email)
+    )
+    res = db.session.execute(stmt).all()
+    res = listup_to_dict(res)
+    print((res))
+    return res
+
+def listup_to_dict(listup):
+    mydict = {}
+    for user_id, username in listup:
+        mydict[str(user_id)] = username
+
+    return mydict
