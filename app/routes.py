@@ -44,8 +44,8 @@ def index():
 def home():
     uid = get_user_id()
     posts = get_posts()
-    liked_posts = get_voted_posts(uid, vote_type="like")
-    disliked_posts = get_voted_posts(uid, vote_type="dislike")
+    myliked_posts = get_voted_posts(uid, vote_type="like")
+    mydisliked_posts = get_voted_posts(uid, vote_type="dislike")
     current_time = datetime.datetime.now()
     for post in posts:
         time_posted = datetime.datetime.fromtimestamp(post['time'])
@@ -57,8 +57,8 @@ def home():
         "home.html",
         session=dict(session).get('user', None),
         posts=posts, isadmin=isadmin(uid),
-        liked_posts=liked_posts, disliked_posts=disliked_posts
-        )
+        liked_posts=myliked_posts, disliked_posts=mydisliked_posts
+    )
 
 
 def get_posts():
@@ -244,11 +244,28 @@ def admin():
 @app.route("/profile")
 def profile():
     uid = get_user_id()
+    myliked_posts = get_voted_posts(uid, vote_type="like")
+    mydisliked_posts = get_voted_posts(uid, vote_type="dislike")
+    all_posts = get_posts()
+    filtered = filter(
+        lambda post: post['id'] in mydisliked_posts + myliked_posts,
+        all_posts
+    )
+    myposts = list(filtered)
+    current_time = datetime.datetime.now()
+    for post in myposts:
+        time_posted = datetime.datetime.fromtimestamp(post['time'])
+        time_since = current_time - time_posted
+        hours, rem = divmod(time_since.seconds, 3600)
+        post['time'] = hours
     if uid:
-        return render_template("profile.html",
+        return render_template(
+            "profile.html",
             session=dict(session).get('user', None),
-            isadmin=isadmin(get_user_id())
-            )
+            isadmin=isadmin(get_user_id()),
+            posts=myposts,
+            liked_posts=myliked_posts, disliked_posts=mydisliked_posts
+        )
     else:
         return redirect("/error")
 
@@ -263,3 +280,53 @@ def favicon():
         'favicon.ico',
         mimetype='image/vnd.microsoft.icon'
     )
+
+@app.route("/remove_dislike",methods= ['POST'] )
+def remove_dislike():
+    remove_vote('dislike')
+    return redirect(request.referrer)
+
+@app.route("/remove_like",methods= ['POST'] )
+def remove_like():
+    remove_vote('like')
+    return redirect(request.referrer)
+
+def remove_vote(vote_type):
+    uid = get_user_id()
+    story_id = ""
+    if request.method == 'POST':
+        story_id = request.form[vote_type]
+    
+    stmt = select(Post).where(Post.id==story_id)
+    mypost = db.session.execute(stmt).first()
+    mypost = str(mypost[0])
+    mypost = (ast.literal_eval(mypost))
+    if vote_type == "dislike":
+        rmstmt = (
+            delete(disliked_posts).
+            where(
+                disliked_posts.c.user_id==uid,
+                disliked_posts.c.post_id==mypost['id']
+            )
+        )
+    elif vote_type == "like":
+        rmstmt = (
+            delete(liked_posts).
+            where(
+                liked_posts.c.user_id==uid,
+                liked_posts.c.post_id==mypost['id']
+            )
+        )
+
+    try:
+        db.session.execute(rmstmt)
+        db.session.commit()
+    except Exception as e:
+            db.session.rollback()
+    else:
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
+            print("Integrity error")
+            print("Except")

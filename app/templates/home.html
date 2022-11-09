@@ -3,51 +3,60 @@
 
 <body class="home">
 <header>Top Stories</header>
-    {% if session %}
-        <h1 class="text">Welcome {{session.userinfo.name}}!</h1>
-        <p><a href="/logout">Logout</a></p>
-        <div><pre>{{pretty}}</pre></div>
-        {% if isadmin %}
-            <h2 class="text"> Welcome Admin! </h2>
-        {% endif %}
-    {% else %}
-        <h1 class="text">Welcome Guest</h1>
-        <p><a href="/login">Login</a></p>
+{% if session %}
+    <h1 class="text">Welcome {{session.userinfo.name}}!</h1>
+    <p><a href="/logout">Logout</a></p>
+    <div><pre>{{pretty}}</pre></div>
+    {% if isadmin %}
+        <h2 class="text"> Welcome Admin! </h2>
     {% endif %}
-<div><pre>{{pretty}}</pre></div>
+{% else %}
+    <h1 class="text">Welcome Guest</h1>
+    <p><a href="/login">Login</a></p>
+{% endif %}
 {% for post in posts %}
-	<div class="posts">
-		<a class="url" href="{{post['url']}}"><h3>{{post["title"]}}</h3></a>
-		{% if post["time"] == 1 %}
-		<p class="text">Posted by {{post["by"]}} {{post["time"]}} hour ago</p>
-		{% elif post["time"] == 0 %}
-		<p class="text">Posted by {{post["by"]}} less than an hour ago</p>
-		{% else %}
-		<p class="text">Posted by {{post["by"]}} {{post["time"]}} hours ago</p>
-		{% endif %}
+    <div class="posts">
+        <a class="url" href="{{post['url']}}"><h3>{{post["title"]}}</h3></a>
+        {% if post["time"] == 1 %}
+        <p class="text">Posted by {{post["by"]}} {{post["time"]}} hour ago</p>
+        {% elif post["time"] == 0 %}
+        <p class="text">Posted by {{post["by"]}} less than an hour ago</p>
+        {% else %}
+        <p class="text">Posted by {{post["by"]}} {{post["time"]}} hours ago</p>
+        {% endif %}
         <p class="text">Keywords: <b>{{post["keywords"]}}</b></p>
         {% if session %}
             <div class="button-group" >
-            <form action="/like" method="post" >
-                {% set is_liked='' %}
-                {% if post['id'] in liked_posts %}
-                    {% set is_liked='Liked' %}
-                {% endif %}
-                    <button type="submit" name="like" value="{{post['id']}}"
-                    class = "{{is_liked}}">Like</button> 
-            </form>
-            <form action="/dislike" method="post" >
-                {% set is_disliked='' %}
-                {% if post['id'] in disliked_posts %}
-                    {% set is_disliked='Disliked' %}
-                {% endif %}
-                    <button type="submit" name="dislike" value="{{post['id']}}"
-                    class = "{{is_disliked}}">Dislike</button> 
-            </form>
+            {% if post['id'] in liked_posts %}
+                <form action="/remove_like" method="post" >
+                        {% set is_liked='Liked' %}
+                        <button type="submit" name="like" value="{{post['id']}}"
+                        class = "{{is_liked}}">Like</button> 
+                </form>
+            {% else %}
+                <form action="/like" method="post" >
+                        {% set is_liked='' %}
+                        <button type="submit" name="like" value="{{post['id']}}"
+                        class = "{{is_liked}}">Like</button> 
+                </form>
+            {% endif %}
+            {% if post['id'] in disliked_posts %}
+                <form action="/remove_dislike" method="post" >
+                        {% set is_disliked='Disliked' %}
+                        <button type="submit" name="dislike" value="{{post['id']}}"
+                        class = "{{is_disliked}}">Disike</button> 
+                </form>
+            {% else %}
+                <form action="/dislike" method="post" >
+                        {% set is_disliked='' %}
+                        <button type="submit" name="dislike" value="{{post['id']}}"
+                        class = "{{is_disliked}}">Dislike</button> 
+                </form>
+            {% endif %}
             </div>
         {% endif %}
-	</div>
-	<br>
+    </div>
+    <br>
 {% endfor %}
-  </body>
+</body>
 {% endblock %}
