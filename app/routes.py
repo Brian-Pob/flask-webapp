@@ -271,7 +271,11 @@ def profile():
 
 @app.route("/error")
 def error():
-    return render_template("error.html")
+    return render_template(
+        "error.html",
+        session=dict(session).get('user', None),
+        isadmin=isadmin(get_user_id())
+    )
 
 @app.route("/favicon.ico")
 def favicon():
@@ -293,6 +297,10 @@ def remove_like():
 
 def remove_vote(vote_type):
     uid = get_user_id()
+
+    if isadmin(uid):
+        print("Is an admin")
+
     story_id = ""
     if request.method == 'POST':
         story_id = request.form[vote_type]
