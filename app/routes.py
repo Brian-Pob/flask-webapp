@@ -259,7 +259,7 @@ def admin():
             posts_data[str(p["id"])] = p
 
         current_time = datetime.datetime.now()
-        for post in posts:
+        for post in posts_data.values():
             time_posted = datetime.datetime.fromtimestamp(post['time'])
             time_since = current_time - time_posted
             hours, rem = divmod(time_since.seconds, 3600)
