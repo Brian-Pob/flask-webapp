@@ -67,7 +67,7 @@ header {
 
 .text{
   color: #C5C6C7;
-  margin-top: -5px
+  margin-top: -5px;
 }
 
 .about {
@@ -79,4 +79,10 @@ header {
     justify-content: center;
     align-items: center;
     gap: 5px;
+}
+
+
+pre {
+  white-space: pre-wrap;
+  font-family: 'Times New Roman', Times, serif;
 }
