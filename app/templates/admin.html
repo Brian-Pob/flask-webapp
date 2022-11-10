@@ -5,7 +5,7 @@
     <br>
     <h2 class="text">Welcome {{session.userinfo.name}}!</h2>
     <h3 class="text">This page can only be access by admins.</h3>
-    <h4 class="text">Admins can see what posts other users have liked and disliked, as well as remove likes and dislikes from posts.</h4>
+    <h4 class="text">Admins can see what posts other users have liked or disliked, as well as remove likes or dislikes from posts.</h4>
 {% for post in posts %}
 {% set post_data=posts_data[post[1]|string] %} 
     <div class="posts">
