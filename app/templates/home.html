@@ -3,16 +3,14 @@
 
 <body class="home">
 <header>Top Stories</header>
+<br>
 {% if session %}
-    <h1 class="text">Welcome {{session.userinfo.name}}!</h1>
-    <p><a href="/logout">Logout</a></p>
-    <div><pre>{{pretty}}</pre></div>
+    <h2 class="text">Welcome {{session.userinfo.name}}!</h2>
     {% if isadmin %}
-        <h2 class="text"> Welcome Admin! </h2>
+        <h3 class="text"> You are logged in as an admin </h3>
     {% endif %}
 {% else %}
-    <h1 class="text">Welcome Guest</h1>
-    <p><a href="/login">Login</a></p>
+    <h2 class="text">Welcome Guest</h2>
 {% endif %}
 {% for post in posts %}
     <div class="posts">

@@ -18,8 +18,16 @@ button:hover, button:active, button:focus {
 	background-color: green;
 }
 
+.Liked:hover, .Liked:active, .Liked:focus {
+  background-color: #34CD00;
+}
+
 .Disliked {
-	background-color: red;
+	background-color: rgb(205, 0, 0);
+}
+
+.Disliked:hover, .Disliked:active, .Disliked:focus {
+  background-color: red;
 }
 
 .url:link, .url:visited{
@@ -67,7 +75,7 @@ header {
 
 .text{
   color: #C5C6C7;
-  margin-top: -5px
+  margin-top: -5px;
 }
 
 .about {
@@ -79,4 +87,9 @@ header {
     justify-content: center;
     align-items: center;
     gap: 5px;
+}
+
+pre {
+  white-space: pre-wrap;
+  font-family: 'Times New Roman', Times, serif;
 }

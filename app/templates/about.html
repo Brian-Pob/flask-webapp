@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 <body class="about">
-    <header>About Flask App</header>
-    <p class="text">This page will contain information about our website, but for now this is just filler text.</p>
+    <header>About Us</header>
+    <pre class="text"> This web application project was developed by Jayen Lare and Brian Poblete for COP 4521 at Florida State University. 
+        The goal of this project was to design a web application that displays news posts from the Hacker News Portal. We used the Python 
+        web application framework, Flask, to develop our website. We also implemented Auth0 for user authentication, Gunicorn to implement 
+        the Web Server Gateway Interface (WSGI), and Nginx as our web server. Some of the features we included in this project were a 
+        login/logout page for users to access their accounts. Also, a home page that displayed the top news stories, time posted, and some keywords 
+        from the post. As well as a like/dislike feature for users to like and dislike posts. We added a profile page for logged in users to see all 
+        the posts they either liked or disliked. In addition to a profile page for all users, we developed an admin page for users with admin privileges.
+        The admin page allows admins to see all posts that were liked or disliked by any user, as well as remove likes or dislikes from posts. We accessed the top Hacker News 
+        stories from the Hacker News API. We worked on this project daily over a 2 month period, and collaborated by utilitizing Zoom meetings, GitLab and Slack. 
+        Thank you for taking the time to check out our project.
+    </pre>
 </body>
 {% endblock %}
