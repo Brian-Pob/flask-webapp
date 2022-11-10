@@ -258,8 +258,12 @@ def admin():
         for p in posts_list:
             posts_data[str(p["id"])] = p
 
-        print(users_liked_posts)
-        print(users_disliked_posts)
+        current_time = datetime.datetime.now()
+        for post in posts:
+            time_posted = datetime.datetime.fromtimestamp(post['time'])
+            time_since = current_time - time_posted
+            hours, rem = divmod(time_since.seconds, 3600)
+            post['time'] = hours
         return render_template(
             "admin.html",
             isadmin=isadmin(get_user_id()),
