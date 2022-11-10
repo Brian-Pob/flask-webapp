@@ -233,6 +233,11 @@ def admin():
     if isadmin(uid):
         posts = get_posts_admin()
         all_posts = get_posts()
+        _posts = []
+        with requests.Session() as s:
+            for _uid, story_id in posts:
+                _posts.append(get_story_json(story_id, s))
+        all_posts += _posts
         for p in all_posts:
             if "url" not in p:
                 p["url"] = ""
