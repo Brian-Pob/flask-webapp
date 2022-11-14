@@ -351,7 +351,12 @@ def remove_vote(vote_type):
 
     if isadmin(uid):
         if request.method == 'POST':
-            story_id, uid = request.form[vote_type].split("&")
+            try:
+                story_id, uid = request.form[vote_type].split("&")
+            except ValueError as e:
+                print(e)
+                story_id = request.form[vote_type]
+                uid = get_user_id()
     else:
         if request.method == 'POST':
             story_id = request.form[vote_type]
