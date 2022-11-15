@@ -1,3 +1,4 @@
+import re
 import random
 import sys
 import os
@@ -77,11 +78,19 @@ def get_story_json(story_id, s):
                 new_response['keywords'] = i.text
             else:
                 new_response['keywords'] = [i.text]
-        if len(new_response['keywords']) < 2:
-            new_response['keywords'] += [new_response['title'].split()[-1]]
+        if len(new_response['keywords']) == 0:
+            to_add = rm_nonalnum(new_response['title'].split()[0])
+            new_response['keywords'].append(to_add) 
+            to_add = rm_nonalnum(new_response['title'].split()[-1])
+            new_response['keywords'].append(to_add)
+                
         sys.stdout.flush()
         return new_response
     return inner_get_json(story_id)
+
+def rm_nonalnum(s):
+    toret = re.sub(r'[^0-9a-zA-Z]+', '', s)
+    return toret
 
 def get_voted_posts(uid, vote_type):
     stmt = ""
