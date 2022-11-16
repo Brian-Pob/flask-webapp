@@ -17,9 +17,6 @@ include:
 
 
 before_script:
-  - apt update
-  - apt upgrade
-  - apt install python3-distutils
   - python3 -m pip install --upgrade pip
   - python3 -m pip install -r requires.txt
 
