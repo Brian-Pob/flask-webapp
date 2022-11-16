@@ -16,17 +16,17 @@ include:
 - template: Security/SAST.gitlab-ci.yml
 
 
-before_script:
-  - python3 -m pip install --upgrade pip
-  - python3 -m pip install -r requires.txt
+  #before_script:
+  #- python3 -m pip install --upgrade pip
+  #- python3 -m pip install -r requires.txt
 
 testonline:
   script:
   - python3 app/tests/online_test.py
 
-test_routes:
-  script:
-  - python3 -m pytests app/tests/test_page_routes.py  
+    #test_routes:
+    #script:
+    #- python3 -m pytests app/tests/test_page_routes.py  
     # for practice purposes, the below code will definitely fail and 
     # cause the pipeline to fail
     #- python3 app/tests/willfail.py
