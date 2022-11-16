@@ -46,6 +46,7 @@ def home():
     myliked_posts = [i[1] for i in get_voted_posts(uid, vote_type="like")]
     mydisliked_posts = [i[1] for i in get_voted_posts(uid, vote_type="dislike")]
     current_time = datetime.datetime.now()
+
     for post in posts:
         time_posted = datetime.datetime.fromtimestamp(post['time'])
         time_since = current_time - time_posted
