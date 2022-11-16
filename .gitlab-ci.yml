@@ -15,9 +15,16 @@ sast:
 include:
 - template: Security/SAST.gitlab-ci.yml
 
+
+before_script:
+  - apt update
+  - apt upgrade
+  - apt install python3-distutils
+  - python3 -m pip install --upgrade pip
+  - python3 -m pip install -r requires.txt
+
 testonline:
   script:
-  - python3 -m pip install -r requires.txt
   - python3 app/tests/online_test.py
   - python3 -m pytests app/tests/test_page_routes.py  
     # for practice purposes, the below code will definitely fail and 
