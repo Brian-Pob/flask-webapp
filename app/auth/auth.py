@@ -15,8 +15,19 @@ def login():
 
 @bp.route("/callback", methods=["GET", "POST"])
 def callback():
-    token = oauth.auth0.authorize_access_token()
+    try:
+        token = oauth.auth0.authorize_access_token()
+    except Exception as e:
+        print(e)
+        return redirect("/error")
+
     session["user"] = token
+    
+    #dummy = open("dummy_data.txt", "a+")
+    #dummy_data = repr(session["user"])
+    #dummy.write(dummy_data + "\n")
+    #dummy.close()
+
     uinfo = dict(session).get('user', None)
     uinfo = dict(uinfo).get('userinfo', None)
     if(db.session.execute(db.select(User).filter_by(email=uinfo.email,

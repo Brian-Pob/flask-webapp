@@ -18,6 +18,7 @@ anyio = "*"
 flask = {extras = ["async"], version = "*"}
 spacy = "*"
 pytest = "*"
+coverage = "*"
 
 [scripts]
 gunilocal= "gunicorn -w 5 -b 0.0.0.0:8000 -m 007 --reload -t 900 wsgi:app"

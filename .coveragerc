@@ -1,0 +1,11 @@
+[report]
+omit =
+    *test*
+    cop4521.py
+    wsgi.py
+
+[run]
+omit =
+    *test*
+    cop4521.py
+    wsgi.py
