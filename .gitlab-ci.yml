@@ -22,7 +22,7 @@ before_script:
 
 testonline:
   script:
-  - python3 app/tests/online_test.py
+  - python3 tests/online_test.py
 
     #test_routes:
     #script:

@@ -56,3 +56,15 @@ def test_votes_no_login(client):
         res = client.get(route)
         assert res.status_code == 405 # not allowed
 
+def dontdo_test_votes_with_login(client):
+    routes = [
+            "/like",
+            "/dislike",
+            "/remove_like",
+            "/remove_dislike",
+            ]
+
+    for route in routes:
+        res = client.get(route)
+        assert res.status_code == 405 # not allowed
+
