@@ -16,9 +16,23 @@ be our bare metal machines or on other VMs. These dev machines should have
 the same or similar setups to the production machine. That means setting up
 Ubuntu 22.04, python3, pip, pipenv, gunicorn, nginx, etc.
 
+### Note as of Feb. 8, 2023
+
+I am writing this post-project submission. The class is over and we have shut down our DigitalOcean server. I have also deleted the Auth0 application that the secret keys in our `.env` file are linked to. 
+
+We realized later on in the projet that we should not be storing our API keys and other important information in the same repo of the project. (Better to make the mistake in a college class than in a real job!)
+
+However, if you scroll through our commit history, you will find the `.env` file with our keys. As I said earlier, the Auth0 app with those keys has been deleted so no need to worry about that (I hope).
+
+Anyways, we were given permission to make our repos public. If you are seeing this on GitHub, it was originally on Gitlab. I just moved the repo so that I could have my biggest projects all in one place.
+
+Most things from here on out have been untouched since project submission. Enjoy!
+
 ## Extra Credit
 
-We will attempt to implement automatic CI/CD with Pulumi.
+~~We will attempt to implement automatic CI/CD with Pulumi.~~
+
+We never ended up doing this sadly :(
 
 ## Commands 
 
