@@ -18,7 +18,7 @@ Ubuntu 22.04, python3, pip, pipenv, gunicorn, nginx, etc.
 
 ### Note as of Feb. 8, 2023
 
-I am writing this post-project submission. The class is over and we have shut down our DigitalOcean server. I have also deleted the Auth0 application that the secret keys in our `.env` file are linked to. 
+I am writing this post-project submission. The class is over and we have shut down our DigitalOcean server. I have also deleted the Auth0 application that the secret keys in our `.env` file are linked to.
 
 We realized later on in the projet that we should not be storing our API keys and other important information in the same repo of the project. (Better to make the mistake in a college class than in a real job!)
 
@@ -28,13 +28,24 @@ Anyways, we were given permission to make our repos public. If you are seeing th
 
 Most things from here on out have been untouched since project submission. Enjoy!
 
+## Screenshots
+
+![Logged out top stories](./images/stories.png)
+Normal view of top stories. A user is not logged in so there are no like/dislike buttons visible.
+
+![Logged in top stories](./images/logged_stories.png)
+Logged in view of top stories. Like and dislike buttons show up. A user's likes and dislikes are only visible to the user and to the admin.
+
+![Admin view](./images/admin.png)
+Admin view. An admin has the ability to remove individual likes and dislikes.
+
 ## Extra Credit
 
 ~~We will attempt to implement automatic CI/CD with Pulumi.~~
 
 We never ended up doing this sadly :(
 
-## Commands 
+## Commands
 
 For local development without nginx: `pipenv run gunilocal`
 With nginx (background): `pipenv run guni`
@@ -57,21 +68,25 @@ by going to [news.brianpob.me/static/images/stars.jpg](https://news.brianpob.me/
 ## What does "curl news.brian.pob.me" do?
 
 The Linux command line tool *curl* stands for "Client URL", and is used to enable data transfers over various network protocols. It is able to communicate with a server by specifying a URL and the data that is to be sent or recieved. *curl* is commonly used for debugging, error logging, endpoint testing, and downloading files from the internet. It can be used directly on the command line or in a script, by implementing the following syntax:
+
 ```
 curl [options/URLs]
 ```
-For our project we were able to utilize the *curl* command, along with Wireshark to better understand the communication involved in accessing our server. We first executed the command: 
+
+For our project we were able to utilize the *curl* command, along with Wireshark to better understand the communication involved in accessing our server. We first executed the command:
+
 ```
 curl news.brianpob.me
 ```
-This allowed us to build the flowchart shown below using Wireshark. The flowchart showed us the protocols of communications being used are TCP and HTTP, and the IP ports being used are ports 80 and 50378.
 
+This allowed us to build the flowchart shown below using Wireshark. The flowchart showed us the protocols of communications being used are TCP and HTTP, and the IP ports being used are ports 80 and 50378.
 
 ![curl command flowchart](./images/wireshark_graph.png)
 
 ## How does Flask object execute Python code?
 
 Below is an example of a basic Flask application
+
 ```Python
 from flask import Flask    # from the flask package import the Flask class
 app = Flask(__name__)      # create an instance of the Flask object called app with __name__
@@ -82,6 +97,7 @@ def home():                # we create the function that should be triggered
 if __name__ == '__main__': # if code is run standalone, name is main, execute the Flask app
     app.run(debug=True)    # execute the app
 ```
+
 [Source 1](https://pythonhow.com/python-tutorial/flask/How-a-Flask-app-works/)
 
 [Source 2](https://flask.palletsprojects.com/en/2.2.x/quickstart/#a-minimal-application)
@@ -111,10 +127,10 @@ Our config files for setting up the server are located in the `config` folder an
 
 ## References
 
-https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-22-04
+<https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-22-04>
 
-https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+<https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world>
 
-https://stackoverflow.com/questions/17768940/target-database-is-not-up-to-date
+<https://stackoverflow.com/questions/17768940/target-database-is-not-up-to-date>
 
-https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/queries/#select
+<https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/queries/#select>
